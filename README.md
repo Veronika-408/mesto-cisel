@@ -21,6 +21,6 @@ Celá stránka je jeden súbor `index.html` a nepotrebuje server. Stačí ju otv
 
 ## Autorka
 
-**Veronika Csiba**, učiteľka matematiky na Gymnáziu Grösslingová v Bratislave.
+**Veronika Csiba** ([LinkedIn](https://www.linkedin.com/in/veronika-csiba/)), učiteľka matematiky na Gymnáziu Grösslingová v Bratislave.
 
 Stránku sme vytvorili spolu s [Claude](https://claude.ai) (AI od Anthropic).
