@@ -18,3 +18,9 @@ Ostrov **Mesto čísel** má zatiaľ jednu otvorenú časť, **Zlomkovú štvrť
 Každá budova má štyri kroky: *Kde to stretneš*, *Pozri bližšie*, *Prečo to platí* a *Úlohy* (od ľahkých po súťažné, s nápovedou a riešením).
 
 Celá stránka je jeden súbor `index.html` a nepotrebuje server. Stačí ju otvoriť v prehliadači alebo zverejniť cez GitHub Pages.
+
+## Autorka
+
+**Veronika Csiba**, učiteľka matematiky na Gymnáziu Grösslingová v Bratislave.
+
+Stránku sme vytvorili spolu s [Claude](https://claude.ai) (AI od Anthropic).

@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="author" content="Veronika Csiba">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
@@ -425,6 +426,9 @@ button, input { font: inherit; color: inherit; }
 .explore-q textarea { width: 100%; min-height: 84px; border-radius: 12px; border: 2px solid var(--line); background: var(--card); padding: 10px 12px; font: inherit; color: inherit; resize: vertical; }
 .group-h { font-family: var(--display); font-size: 20px; font-weight: 700; margin-top: 4px; }
 
+.credit { margin-top: 48px; padding-top: 22px; border-top: 2px dashed var(--line); display: flex; align-items: center; gap: 16px; color: var(--muted); font-size: 15px; }
+.credit b { color: var(--ink); }
+.credit-mark { flex: none; width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; background: var(--jam-soft); color: var(--jam); font-size: 20px; border: 2px solid var(--outline); }
 .stepnav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; }
 .stepnav span { color: var(--muted); font-weight: 700; font-variant-numeric: tabular-nums; }
 
@@ -756,6 +760,11 @@ button, input { font: inherit; color: inherit; }
 
 <!-- ================= BUILDING PAGE ================= -->
 <section id="bpage" hidden></section>
+
+<footer class="credit">
+  <span class="credit-mark" aria-hidden="true"><span class="frac"><span>1</span><span>2</span></span></span>
+  <p><b>Autorka: Veronika Csiba</b>, učiteľka matematiky na Gymnáziu Grösslingová v Bratislave.<br>Stránku sme vytvorili spolu s Claude (AI od Anthropic).</p>
+</footer>
 
 </div>
 
