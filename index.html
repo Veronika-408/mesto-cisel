@@ -1,0 +1,1766 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Mesto čísel</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: island map → Zlomková štvrť (district map) → building pages told in 4 steps. Each building has its own accent (--bc). */
+:root {
+  --paper: #f2f7fb;
+  --card: #ffffff;
+  --ink: #1b2540;
+  --muted: #54627c;
+  --line: #d3dde9;
+  --accent: #2f5bd3;
+  --accent-ink: #ffffff;
+  --water: #93cde6;
+  --water-deep: #78bcd9;
+  --wave: #c6e7f4;
+  --sand: #f0da9a;
+  --grass: #b3db82;
+  --grass-dark: #9fcd6d;
+  --path: #e9edc8;
+  --road: #dfe4ec;
+  --road-line: #ffffff;
+  --tree: #6aab4b;
+  --trunk: #8a5a32;
+  --shadow: rgba(27, 37, 64, .16);
+  --outline: #1b2540;
+  --halo: #f8fcff;
+  --wall: #fff3dd;
+  --glass: #bfe3f2;
+  --white: #ffffff;
+  --snow: #ffffff;
+  --jam: #e5446a;
+  --jam-soft: #fbd9e1;
+  --sponge: #ffd88a;
+  --crust: #c2843a;
+  --plate: #e3ecf5;
+  --cheese: #f8c34a;
+  --pcrust: #cf8a39;
+  --tomato: #d9480f;
+  --carrot: #f76707;
+  --veg: #a5d46c;
+  --soil: #c9a27a;
+  --lemon: #f5c518;
+  --grey-b: #d3d9e1;
+  --grey-d: #b6bfcb;
+  --grey-line: #8c98a8;
+  --b-bake: #e5446a;
+  --b-clock: #3767d6;
+  --b-clock-wall: #dce6f8;
+  --b-music: #7a4ccb;
+  --b-music-wall: #ece4fb;
+  --b-puzzle: #0b7285;
+  --b-trail: #3d8b37;
+  --b-pizza: #e8590c;
+  --b-pizza-wall: #fde9d9;
+  --b-garden: #5c940d;
+  --b-lemon: #c99a00;
+  --ok: #2b8a3e;
+  --ok-soft: #e1f5e5;
+  --bad: #c92a2a;
+  --bad-soft: #fde4e4;
+  --tip: #fff4cc;
+  --display: "Baloo 2", "Trebuchet MS", system-ui, sans-serif;
+  --body: "Nunito", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f1824; --card: #172334; --ink: #edf2fb; --muted: #a3b2c9; --line: #2b3b52;
+    --accent: #7b9cff; --accent-ink: #0f1824;
+    --water: #173a55; --water-deep: #12304a; --wave: #24506f; --sand: #6b5c34; --grass: #355a2f; --grass-dark: #2c4d27; --path: #4d6a42;
+    --road: #33404f; --road-line: #56667a;
+    --tree: #4f8a3c; --trunk: #6b4628; --shadow: rgba(0,0,0,.35); --outline: #0b121c; --halo: #0f1824;
+    --wall: #f3e3c6; --glass: #8cc3db; --white: #f1f4f8; --snow: #eef3f8;
+    --jam: #ff6b8d; --jam-soft: #4a2230; --sponge: #f0c46c; --crust: #b07a36; --plate: #22344a;
+    --cheese: #e7b23f; --pcrust: #b57631; --tomato: #ff6b3d; --carrot: #ff922b; --veg: #5e8f3a; --soil: #6e563c; --lemon: #f5c518;
+    --grey-b: #3a4757; --grey-d: #2d3846; --grey-line: #74849a;
+    --b-bake: #ff6b8d; --b-clock: #7fa2ff; --b-clock-wall: #c9d6f2; --b-music: #b197fc; --b-music-wall: #ddd0f7;
+    --b-puzzle: #3bc9db; --b-trail: #69b35f; --b-pizza: #ff8a3d; --b-pizza-wall: #f6dcc8; --b-garden: #94d82d; --b-lemon: #ffd43b;
+    --ok: #69db7c; --ok-soft: #173822; --bad: #ff8787; --bad-soft: #3d1c1c; --tip: #3a3218;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f1824; --card: #172334; --ink: #edf2fb; --muted: #a3b2c9; --line: #2b3b52;
+  --accent: #7b9cff; --accent-ink: #0f1824;
+  --water: #173a55; --water-deep: #12304a; --wave: #24506f; --sand: #6b5c34; --grass: #355a2f; --grass-dark: #2c4d27; --path: #4d6a42;
+  --road: #33404f; --road-line: #56667a;
+  --tree: #4f8a3c; --trunk: #6b4628; --shadow: rgba(0,0,0,.35); --outline: #0b121c; --halo: #0f1824;
+  --wall: #f3e3c6; --glass: #8cc3db; --white: #f1f4f8; --snow: #eef3f8;
+  --jam: #ff6b8d; --jam-soft: #4a2230; --sponge: #f0c46c; --crust: #b07a36; --plate: #22344a;
+  --cheese: #e7b23f; --pcrust: #b57631; --tomato: #ff6b3d; --carrot: #ff922b; --veg: #5e8f3a; --soil: #6e563c; --lemon: #f5c518;
+  --grey-b: #3a4757; --grey-d: #2d3846; --grey-line: #74849a;
+  --b-bake: #ff6b8d; --b-clock: #7fa2ff; --b-clock-wall: #c9d6f2; --b-music: #b197fc; --b-music-wall: #ddd0f7;
+  --b-puzzle: #3bc9db; --b-trail: #69b35f; --b-pizza: #ff8a3d; --b-pizza-wall: #f6dcc8; --b-garden: #94d82d; --b-lemon: #ffd43b;
+  --ok: #69db7c; --ok-soft: #173822; --bad: #ff8787; --bad-soft: #3d1c1c; --tip: #3a3218;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.55; }
+.wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding-block: 28px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(34px, 6vw, 54px); font-weight: 800; }
+h2 { font-size: clamp(24px, 3.6vw, 32px); font-weight: 700; }
+h3 { font-size: 21px; font-weight: 700; }
+p { margin: 0; }
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- shared bits ---------- */
+.intro { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 32px; margin-bottom: 20px; }
+.intro p { color: var(--muted); max-width: 56ch; }
+.kicker { font-weight: 800; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--bc, var(--jam)); margin-bottom: 4px; }
+.skvp { color: var(--muted); font-size: 15px; font-weight: 700; margin-top: 6px; }
+.legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 15px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.sw { width: 18px; height: 18px; border-radius: 5px; border: 2px solid var(--outline); }
+.sw.c { background: var(--jam); }
+.sw.g { background: var(--grey-b); border: 2px dashed var(--grey-line); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; border-radius: 999px; padding: 9px 18px; font-weight: 800; font-size: 16px; border: 2px solid var(--outline); background: var(--card); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn:disabled { opacity: .4; cursor: default; }
+.btn.small { padding: 6px 14px; font-size: 15px; }
+.link { background: none; border: 0; padding: 0; cursor: pointer; font-weight: 800; color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- maps ---------- */
+.map-frame { border-radius: 28px; overflow: hidden; border: 3px solid var(--outline); background: var(--water); box-shadow: 0 8px 0 var(--shadow); }
+.map-frame svg { display: block; width: 100%; height: auto; }
+.water { fill: var(--water); }
+.waves path { fill: none; stroke: var(--wave); stroke-width: 3; stroke-linecap: round; }
+.sand { fill: var(--sand); }
+.grass { fill: var(--grass); }
+.grass-dark { fill: var(--grass-dark); }
+.paths path { fill: none; stroke: var(--path); stroke-width: 16; stroke-linecap: round; }
+.road { fill: var(--road); }
+.roadline { stroke: var(--road-line); stroke-width: 3; stroke-dasharray: 14 12; fill: none; }
+.tree circle { fill: var(--tree); stroke: var(--outline); stroke-width: 2.5; }
+.tree rect { fill: var(--trunk); }
+.shadow { fill: var(--shadow); }
+.ol { stroke: var(--outline); stroke-width: 3; stroke-linejoin: round; }
+.ol2 { stroke: var(--outline); stroke-width: 2; stroke-linejoin: round; }
+.wall { fill: var(--wall); }
+.roof { fill: var(--jam); }
+.a1 { fill: var(--jam); } .a2 { fill: var(--white); }
+.glass { fill: var(--glass); }
+.door { fill: var(--crust); }
+.sponge { fill: var(--sponge); }
+.jamf { fill: var(--jam); }
+.crustl { stroke: var(--crust); stroke-width: 2.5; stroke-linecap: round; }
+.inkl { stroke: var(--outline); stroke-width: 3; stroke-linecap: round; }
+.gb { fill: var(--grey-b); stroke: var(--grey-line); stroke-width: 2.5; stroke-dasharray: 6 5; stroke-linejoin: round; }
+.gd { fill: var(--grey-d); }
+.gl { stroke: var(--grey-line); stroke-width: 2.5; stroke-linecap: round; }
+.gtext { fill: var(--grey-line); font-family: var(--display); font-weight: 800; }
+.lbl { font-family: var(--display); font-weight: 700; font-size: 19px; fill: var(--ink); paint-order: stroke; stroke: var(--halo); stroke-width: 6px; stroke-linejoin: round; }
+.sub { font-family: var(--body); font-weight: 800; font-size: 13px; fill: var(--muted); paint-order: stroke; stroke: var(--halo); stroke-width: 5px; stroke-linejoin: round; }
+.sub.open { fill: var(--jam); }
+.boat { fill: var(--card); stroke: var(--outline); stroke-width: 2.5; stroke-linejoin: round; }
+.fountain { fill: var(--water); stroke: var(--outline); stroke-width: 3; }
+.spray { fill: none; stroke: var(--wave); stroke-width: 3; stroke-linecap: round; }
+.f-clock { fill: var(--b-clock); } .f-clockwall { fill: var(--b-clock-wall); }
+.f-music { fill: var(--b-music); } .f-musicwall { fill: var(--b-music-wall); }
+.f-puzzle { fill: var(--b-puzzle); } .f-trail { fill: var(--b-trail); }
+.f-pizza { fill: var(--b-pizza); } .f-pizzawall { fill: var(--b-pizza-wall); }
+.f-garden { fill: var(--b-garden); } .f-lemon { fill: var(--lemon); }
+.f-white { fill: var(--white); } .f-snow { fill: var(--snow); } .f-ink { fill: var(--outline); }
+.f-cheese { fill: var(--cheese); } .f-tomato { fill: var(--tomato); } .f-carrot { fill: var(--carrot); } .f-trunk { fill: var(--trunk); }
+.f-card { fill: var(--card); } .f-grey { fill: var(--grey-d); }
+.s-music { stroke: var(--b-music); stroke-width: 1.6; }
+.s-trailpath { fill: none; stroke: var(--sand); stroke-width: 4; stroke-dasharray: 7 6; stroke-linecap: round; }
+.signtext { font-family: var(--display); font-weight: 800; font-size: 14px; fill: var(--ink); }
+.qmark { font-family: var(--display); font-weight: 800; font-size: 64px; fill: var(--white); }
+
+.bld { cursor: pointer; outline: none; }
+.bld .lift { transition: transform .2s ease, filter .2s ease; }
+.bld:hover .lift { transform: translateY(-6px); }
+.bld:focus-visible .lift { filter: drop-shadow(0 0 5px var(--accent)) drop-shadow(0 0 2px var(--accent)); transform: translateY(-6px); }
+.sign { animation: bob 2.6s ease-in-out infinite; }
+@keyframes bob { 50% { transform: translateY(-4px); } }
+.badge-c { fill: var(--ok); }
+.badge-t { font-family: var(--body); font-weight: 800; font-size: 12px; fill: var(--white); }
+
+.info { margin-top: 16px; padding: 16px 20px; border-radius: 18px; background: var(--card); border: 2px dashed var(--grey-line); display: flex; gap: 16px; align-items: start; justify-content: space-between; }
+.info p { max-width: 64ch; }
+.info button { background: none; border: 0; cursor: pointer; font-size: 22px; line-height: 1; color: var(--muted); padding: 2px 6px; }
+
+.cards { margin-top: 24px; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+.card { text-align: left; cursor: pointer; padding: 14px 16px; border-radius: 16px; background: var(--card); border: 2px dashed var(--grey-line); display: grid; gap: 2px; transition: transform .15s ease; }
+.card:hover { transform: translateY(-2px); }
+.card b { font-family: var(--display); font-size: 19px; font-weight: 700; }
+.card span { color: var(--muted); font-size: 15px; }
+.card small { color: var(--muted); font-size: 14px; font-weight: 800; }
+.card.built { border: 2px solid var(--outline); box-shadow: 0 4px 0 var(--bc, var(--jam)); }
+.card.built small { color: var(--bc, var(--jam)); }
+.meter { height: 8px; border-radius: 99px; background: var(--line); overflow: hidden; margin-top: 6px; }
+.meter i { display: block; height: 100%; background: var(--bc, var(--jam)); border-radius: 99px; }
+.foot { margin-top: 28px; color: var(--muted); font-size: 15px; max-width: 72ch; }
+
+/* ---------- building page ---------- */
+.topic-head { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.th-l { display: flex; align-items: center; gap: 18px; min-width: 0; }
+.th-l > div { min-width: 0; }
+.hero { width: 118px; height: auto; flex: none; padding: 6px; border-radius: 22px; background: color-mix(in srgb, var(--bc) 14%, var(--card)); border: 2px solid var(--line); }
+@media (max-width: 520px) { .hero { width: 84px; } }
+.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 20px; }
+.step-tab { cursor: pointer; text-align: left; padding: 10px 14px; border-radius: 14px; border: 2px solid var(--line); background: var(--card); min-width: 0; }
+.step-tab .n { display: block; font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.step-tab .t { display: block; font-family: var(--display); font-weight: 700; font-size: 17px; line-height: 1.2; }
+.step-tab[aria-selected="true"] { border-color: var(--outline); background: color-mix(in srgb, var(--bc) 16%, var(--card)); box-shadow: 0 3px 0 var(--bc); }
+.step-tab.done .n::after { content: " ✓"; color: var(--ok); }
+@media (max-width: 640px) { .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.panel { background: var(--card); border: 2px solid var(--line); border-radius: 24px; padding: clamp(18px, 4vw, 36px); display: grid; gap: 28px; }
+.panel > * { min-width: 0; }
+.lead { font-size: 19px; max-width: 62ch; }
+.two { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 32px; align-items: center; }
+@media (max-width: 760px) { .two { grid-template-columns: minmax(0, 1fr); } }
+.stack { display: grid; gap: 14px; }
+.stack > * { min-width: 0; }
+.center { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; }
+
+.cake { width: min(300px, 100%); aspect-ratio: 1; max-width: 100%; display: block; margin: 0 auto; }
+.cake.mini { width: 120px; }
+.cake.sm { width: 96px; margin: 0; }
+.piece { stroke: var(--crust); stroke-width: 2.5; stroke-linejoin: round; transition: fill .2s ease; }
+.piece.off { fill: var(--sponge); }
+.piece.on { fill: var(--jam); }
+.cake.live .piece { cursor: pointer; }
+.cake.live .piece:hover.off { fill: var(--jam-soft); }
+.cake.live .piece:focus-visible { outline: none; stroke: var(--accent); stroke-width: 5; }
+.plate { fill: var(--plate); }
+.ring { fill: none; stroke: var(--crust); stroke-width: 5; }
+.cut { stroke: var(--crust); stroke-width: 2.5; stroke-linecap: round; }
+.cut.new { stroke-dasharray: 90; stroke-dashoffset: 90; animation: draw .7s ease forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.pizza .piece.on { fill: var(--cheese); stroke: var(--pcrust); }
+.pizza .piece.off { fill: var(--plate); stroke: var(--line); stroke-dasharray: 5 5; }
+.pizza .ring, .pizza .cut { stroke: var(--pcrust); }
+.pizza .pep { fill: var(--tomato); }
+.wedge { width: 46px; height: 46px; }
+.wpiece { fill: var(--cheese); stroke: var(--pcrust); stroke-width: 6; stroke-linejoin: round; }
+
+.frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; font-family: var(--display); font-weight: 800; line-height: 1.05; font-variant-numeric: tabular-nums; }
+.frac > span + span { border-top: .08em solid currentColor; padding-top: .04em; min-width: 1.2em; text-align: center; }
+.frac .frac { font-size: .82em; }
+.frac.inline { font-size: 1.02em; margin: 0 .12em; }
+.frac.big { font-size: clamp(44px, 9vw, 64px); }
+.frac.huge { font-size: 96px; }
+.frac .top { color: var(--bc, var(--jam)); }
+.mixed { display: inline-flex; align-items: center; gap: .08em; font-family: var(--display); font-weight: 800; vertical-align: middle; }
+.mixed.big { font-size: 64px; }
+.eqn { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; font-family: var(--display); font-weight: 800; font-size: 30px; }
+.eqn .frac { font-size: 30px; }
+
+.anat { display: flex; align-items: stretch; gap: 20px; }
+.anat-l { display: flex; flex-direction: column; justify-content: space-around; gap: 12px; }
+.anat-l p { font-size: 16px; color: var(--muted); }
+.anat-l b { display: block; font-family: var(--display); font-size: 20px; color: var(--ink); }
+.compare { display: flex; flex-wrap: wrap; gap: 24px; }
+.compare figure, .fig { margin: 0; display: grid; justify-items: center; gap: 6px; text-align: center; font-weight: 700; font-size: 15px; }
+.yes { color: var(--ok); } .no { color: var(--bad); }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 999px; background: var(--paper); border: 2px solid var(--line); font-weight: 700; }
+
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; }
+.stepper { display: inline-flex; align-items: center; border: 2px solid var(--outline); border-radius: 999px; overflow: hidden; background: var(--card); }
+.stepper button { border: 0; background: none; cursor: pointer; width: 44px; height: 40px; font-size: 22px; font-weight: 800; }
+.stepper button:disabled { opacity: .3; cursor: default; }
+.stepper output { min-width: 56px; text-align: center; font-family: var(--display); font-weight: 800; font-size: 20px; font-variant-numeric: tabular-nums; display: inline-flex; justify-content: center; }
+.stepper output .frac { font-size: 17px; }
+.seg { display: inline-flex; flex-wrap: wrap; border: 2px solid var(--outline); border-radius: 14px; overflow: hidden; background: var(--card); }
+.seg button { border: 0; background: none; cursor: pointer; padding: 6px 12px; font-weight: 800; min-height: 42px; display: inline-flex; align-items: center; }
+.seg button + button { border-left: 2px solid var(--line); }
+.seg button[aria-pressed="true"] { background: color-mix(in srgb, var(--bc) 22%, var(--card)); }
+.seg .frac { font-size: 17px; }
+.readout { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+.say { font-size: 18px; }
+.words { color: var(--muted); font-weight: 700; }
+.task { border-radius: 18px; padding: 18px 20px; background: var(--paper); border: 2px dashed var(--line); display: grid; gap: 12px; }
+.task-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.fb { border-radius: 12px; padding: 10px 14px; font-weight: 700; }
+.fb.ok { background: var(--ok-soft); color: var(--ok); }
+.fb.bad { background: var(--bad-soft); color: var(--bad); }
+
+.player { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 28px; align-items: center; }
+@media (max-width: 760px) { .player { grid-template-columns: minmax(0, 1fr); } }
+.stage { min-height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; }
+.stage > * { max-width: 100%; }
+.stage .row { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 12px 18px; }
+.stage .eq { font-family: var(--display); font-weight: 800; font-size: 36px; color: var(--muted); }
+.trio { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px 14px; }
+.trio figure { margin: 0; display: grid; justify-items: center; gap: 4px; }
+.trio .cake { width: 104px; }
+.trio .frac { font-size: 32px; }
+.pinfo { display: grid; gap: 12px; }
+.pcount { font-size: 13px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.dots { display: flex; gap: 6px; }
+.dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+.dots i.on { background: var(--bc); }
+.rule { border-radius: 18px; padding: 18px 20px; border: 2px solid var(--outline); display: grid; gap: 10px; background: color-mix(in srgb, var(--bc) 7%, var(--card)); }
+.rule .ex { font-size: 26px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-family: var(--display); font-weight: 800; }
+.tip { border-radius: 18px; padding: 18px 20px; background: var(--tip); display: grid; gap: 8px; }
+
+/* clock */
+.clock { width: min(300px, 100%); aspect-ratio: 1; display: block; margin: 0 auto; }
+.cface { fill: var(--card); stroke: var(--outline); stroke-width: 4; }
+.csec.a { fill: color-mix(in srgb, var(--b-clock) 50%, transparent); }
+.csec.b { fill: color-mix(in srgb, var(--jam) 50%, transparent); }
+.twl { stroke: var(--b-clock); stroke-width: 1.5; stroke-dasharray: 3 4; }
+.tk { stroke: var(--muted); stroke-width: 1.2; }
+.tk.big { stroke: var(--ink); stroke-width: 3; }
+.cnum { font-family: var(--display); font-weight: 800; font-size: 16px; fill: var(--ink); }
+.hand { stroke: var(--outline); stroke-width: 4; stroke-linecap: round; }
+.cdot { fill: var(--outline); }
+
+/* number line */
+.nlwrap { overflow-x: auto; }
+.nl { display: block; width: 100%; min-width: 540px; height: auto; touch-action: manipulation; }
+.nl.click { cursor: pointer; }
+.nl-axis { stroke: var(--ink); stroke-width: 3; stroke-linecap: round; }
+.nl-tick { stroke: var(--muted); stroke-width: 2; }
+.nl-tick.int { stroke: var(--ink); stroke-width: 3; }
+.nl-int { font-family: var(--display); font-weight: 800; font-size: 22px; fill: var(--ink); }
+.nl-fr { font-family: var(--body); font-weight: 700; font-size: 12px; fill: var(--muted); }
+.nl-mark circle { fill: var(--b-trail); stroke: var(--outline); stroke-width: 2.5; }
+.nl-mark line { stroke: var(--outline); stroke-width: 2.5; }
+.nl-mark rect { fill: var(--card); stroke: var(--outline); stroke-width: 2.5; }
+.nl-mark text { font-family: var(--display); font-weight: 800; font-size: 16px; fill: var(--ink); }
+.nl-mark.b circle { fill: var(--jam); }
+.d-house { fill: var(--wall); stroke: var(--outline); stroke-width: 2; }
+.d-peak { fill: var(--b-trail); stroke: var(--outline); stroke-width: 2; }
+.d-snow { fill: var(--snow); }
+.d-name { font-family: var(--body); font-weight: 800; font-size: 11px; fill: var(--muted); }
+
+/* music */
+.notes-legend { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.notes-legend figure { margin: 0; display: grid; justify-items: center; gap: 2px; padding: 10px 4px; border-radius: 14px; background: var(--paper); font-weight: 700; font-size: 14px; text-align: center; }
+.notes-legend .frac { font-size: 22px; }
+.note { width: 34px; height: 62px; display: block; }
+.note.sm { width: 26px; height: 48px; }
+.n-stem { stroke: var(--ink); stroke-width: 2.6; }
+.n-flag, .n-dot { fill: var(--ink); }
+.n-head { fill: var(--ink); stroke: var(--ink); stroke-width: 2.6; }
+.n-head.hollow { fill: var(--card); }
+.bar { position: relative; border: 3px solid var(--outline); border-radius: 14px; background: var(--card); min-height: 116px; overflow: hidden; }
+.bsegs { display: flex; min-height: 110px; }
+.bseg { min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; border-right: 2px solid var(--outline); background: color-mix(in srgb, var(--b-music) 18%, var(--card)); transition: background .15s ease; }
+.bseg .frac { font-size: 16px; }
+.bseg.over { background: var(--bad-soft); }
+.bseg.playing { background: color-mix(in srgb, var(--b-music) 50%, var(--card)); }
+.bseg.empty { background: repeating-linear-gradient(135deg, transparent 0 8px, color-mix(in srgb, var(--line) 60%, transparent) 8px 10px); border-right: 0; }
+.bend { position: absolute; top: 0; bottom: 0; width: 4px; margin-left: -2px; background: var(--outline); }
+.notebtn { cursor: pointer; display: inline-flex; flex-direction: column; align-items: center; gap: 0; padding: 6px 10px; border-radius: 14px; border: 2px solid var(--outline); background: var(--card); font-weight: 800; font-size: 13px; }
+.notebtn .frac { font-size: 15px; }
+.cbar { display: flex; width: 100%; max-width: 460px; border: 3px solid var(--outline); border-radius: 12px; overflow: hidden; background: var(--card); }
+.cseg { min-width: 0; display: flex; flex-direction: column; align-items: center; border-right: 3px solid var(--outline); }
+.cseg:last-child { border-right: 0; }
+.cseg.fill { background: color-mix(in srgb, var(--b-music) 22%, var(--card)); }
+.cseg .note { margin: 6px 0; }
+.cells { display: flex; width: 100%; margin-top: auto; }
+.cells i { flex: 1; height: 26px; border-right: 2px dashed var(--line); border-top: 2px solid var(--line); }
+.cells i:last-child { border-right: 0; }
+.cseg:not(.fill) .cells i { height: 88px; }
+
+/* garden */
+.garden { width: min(340px, 100%); height: auto; display: block; margin: 0 auto; }
+.g-soil { fill: var(--soil); } .g-veg { fill: var(--veg); } .g-carrot { fill: var(--carrot); }
+.g-v { stroke: var(--outline); stroke-width: 2.5; }
+.g-h { stroke: var(--outline); stroke-width: 2; stroke-dasharray: 6 5; }
+.g-frame { fill: none; stroke: var(--outline); stroke-width: 4; }
+.g-sprout { fill: var(--b-garden); }
+.glegend { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; font-size: 14px; font-weight: 700; color: var(--muted); }
+.glegend span { display: inline-flex; align-items: center; gap: 6px; }
+.glegend i { width: 16px; height: 16px; border-radius: 4px; border: 2px solid var(--outline); }
+
+/* lemonade */
+.lemon { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: center; gap: 12px 20px; }
+.jug { width: 110px; height: auto; flex: none; }
+.lq { fill: var(--lemon); }
+.jg { fill: none; stroke: var(--outline); stroke-width: 4; stroke-linejoin: round; }
+.jg-h { fill: none; stroke: var(--outline); stroke-width: 6; stroke-linecap: round; }
+.cups { display: flex; flex-wrap: wrap; gap: 6px; max-width: 360px; align-items: flex-end; }
+.cup { width: 36px; height: 48px; }
+.cupo { fill: none; stroke: var(--outline); stroke-width: 2.5; stroke-linejoin: round; }
+.lemon .cap { width: 100%; text-align: center; font-weight: 700; color: var(--muted); font-size: 15px; }
+
+/* tasks */
+.tasks { display: grid; gap: 16px; }
+.q { border-radius: 18px; padding: 18px 20px; background: var(--paper); border: 2px solid var(--line); display: grid; gap: 12px; }
+.q.solved { border-color: var(--ok); }
+.qh { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.stars { color: var(--bc); font-size: 17px; letter-spacing: .1em; }
+.done-badge { color: var(--ok); }
+.done-badge::before { content: "✓ "; }
+.q .opts { display: flex; flex-wrap: wrap; gap: 10px; }
+.opt { cursor: pointer; padding: 10px 18px; border-radius: 14px; border: 2px solid var(--outline); background: var(--card); font-weight: 800; font-size: 18px; min-height: 52px; display: inline-flex; align-items: center; gap: 6px; }
+.opt .frac { font-size: 20px; }
+.opt.right { background: var(--ok-soft); border-color: var(--ok); color: var(--ok); }
+.opt.wrong { background: var(--bad-soft); border-color: var(--bad); color: var(--bad); }
+.opt:disabled { cursor: default; }
+.ans { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.inp { min-width: 0; width: min(240px, 100%); padding: 10px 14px; border-radius: 12px; border: 2px solid var(--outline); background: var(--card); font-size: 18px; font-weight: 700; }
+.inp:disabled { opacity: .7; }
+.qtools { display: flex; gap: 18px; flex-wrap: wrap; font-size: 15px; }
+.hint, .sol { border-radius: 12px; padding: 10px 14px; background: var(--card); border-left: 4px solid var(--bc); }
+.sol { border-left-color: var(--ok); }
+.score { font-family: var(--display); font-size: 22px; font-weight: 700; }
+.explore-q { border-radius: 18px; padding: 18px 20px; border: 2px dashed var(--bc); display: grid; gap: 10px; }
+.explore-q textarea { width: 100%; min-height: 84px; border-radius: 12px; border: 2px solid var(--line); background: var(--card); padding: 10px 12px; font: inherit; color: inherit; resize: vertical; }
+.group-h { font-family: var(--display); font-size: 20px; font-weight: 700; margin-top: 4px; }
+
+.stepnav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; }
+.stepnav span { color: var(--muted); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .cut.new { stroke-dashoffset: 0; }
+}
+</style>
+
+<div class="wrap">
+
+<!-- ================= ISLAND MAP ================= -->
+<section id="map">
+  <div class="intro">
+    <div>
+      <p class="kicker">Matematika pre prímu a sekundu</p>
+      <h1>Mesto čísel</h1>
+      <p>V každej budove býva jedna téma z matematiky. Farebné miesta sa dajú otvoriť. Začni v Zlomkovej štvrti!</p>
+    </div>
+    <div class="legend">
+      <span><i class="sw c"></i>otvorené</span>
+      <span><i class="sw g"></i>čaká na staviteľov</span>
+    </div>
+  </div>
+
+  <div class="map-frame">
+    <svg viewBox="0 0 900 560" role="img" aria-label="Mapa ostrova Mesto čísel">
+      <rect class="water" width="900" height="560"/>
+      <g class="waves">
+        <path d="M50 60 q15 -10 30 0 t30 0"/><path d="M170 34 q15 -10 30 0 t30 0"/><path d="M690 42 q15 -10 30 0 t30 0"/>
+        <path d="M800 92 q15 -10 30 0 t30 0"/><path d="M30 470 q15 -10 30 0 t30 0"/><path d="M800 520 q15 -10 30 0 t30 0"/>
+        <path d="M420 550 q15 -10 30 0 t30 0"/>
+      </g>
+      <path class="boat" d="M70 520 h56 l-10 16 h-36 z M98 520 v-34 l20 30 z"/>
+      <ellipse class="sand" cx="450" cy="322" rx="432" ry="226"/>
+      <ellipse class="grass" cx="450" cy="322" rx="412" ry="208"/>
+      <ellipse class="grass-dark" cx="450" cy="392" rx="300" ry="110" opacity=".45"/>
+      <g class="paths">
+        <path d="M190 352 C 260 380, 380 392, 470 374 C 540 360, 600 350, 645 344"/>
+        <path d="M470 374 C 485 420, 530 470, 580 498"/>
+        <path d="M335 386 C 305 420, 285 460, 274 494"/>
+        <path d="M645 344 C 700 370, 740 400, 777 422"/>
+      </g>
+      <g class="tree"><rect x="91" y="300" width="8" height="18"/><circle cx="95" cy="296" r="15"/></g>
+      <g class="tree"><rect x="281" y="318" width="8" height="18"/><circle cx="285" cy="314" r="14"/></g>
+      <g class="tree"><rect x="376" y="470" width="8" height="18"/><circle cx="380" cy="466" r="15"/></g>
+      <g class="tree"><rect x="696" y="470" width="8" height="18"/><circle cx="700" cy="466" r="14"/></g>
+      <g class="tree"><rect x="796" y="250" width="8" height="18"/><circle cx="800" cy="246" r="14"/></g>
+      <g class="tree"><rect x="536" y="168" width="8" height="18"/><circle cx="540" cy="164" r="13"/></g>
+      <g class="tree"><rect x="110" y="390" width="8" height="18"/><circle cx="114" cy="386" r="13"/></g>
+
+      <g class="bld" data-id="delitelnost" tabindex="0" role="button" aria-label="Veža deliteľnosti, téma Deliteľnosť. Čaká na staviteľov.">
+        <g transform="translate(150,170)"><g class="lift">
+          <ellipse class="shadow" cx="40" cy="182" rx="50" ry="9"/>
+          <rect class="gb" x="0" y="12" width="18" height="22"/><rect class="gb" x="31" y="12" width="18" height="22"/><rect class="gb" x="62" y="12" width="18" height="22"/>
+          <rect class="gb" x="0" y="30" width="80" height="150"/>
+          <rect class="gd" x="30" y="56" width="20" height="28" rx="10"/><rect class="gd" x="30" y="102" width="20" height="24" rx="10"/><rect class="gd" x="26" y="144" width="28" height="36" rx="14"/>
+          <text class="lbl" x="40" y="208" text-anchor="middle">Veža deliteľnosti</text>
+          <text class="sub" x="40" y="226" text-anchor="middle">čaká na staviteľov</text>
+        </g></g>
+      </g>
+
+      <g class="bld" data-id="zlomky" tabindex="0" role="button" aria-label="Zlomková štvrť, osem budov o zlomkoch. Otvoriť.">
+        <g transform="translate(330,168)"><g class="lift">
+          <ellipse class="shadow" cx="95" cy="202" rx="112" ry="12"/>
+          <rect class="wall ol" x="0" y="80" width="190" height="122" rx="4"/>
+          <polygon class="roof ol" points="-14,86 95,28 204,86"/>
+          <rect class="a1" x="10" y="104" width="17" height="22"/><rect class="a2" x="27" y="104" width="17" height="22"/><rect class="a1" x="44" y="104" width="17" height="22"/><rect class="a2" x="61" y="104" width="17" height="22"/><rect class="a1" x="78" y="104" width="17" height="22"/><rect class="a2" x="95" y="104" width="17" height="22"/><rect class="a1" x="112" y="104" width="17" height="22"/><rect class="a2" x="129" y="104" width="17" height="22"/><rect class="a1" x="146" y="104" width="17" height="22"/><rect class="a2" x="163" y="104" width="17" height="22"/>
+          <rect class="ol" x="10" y="104" width="170" height="22" fill="none"/>
+          <rect class="glass ol" x="20" y="138" width="64" height="44" rx="3"/>
+          <path class="sponge" d="M28 178 a14 11 0 0 1 28 0 z"/><path class="jamf" d="M56 178 a10 8 0 0 1 20 0 z"/>
+          <rect class="door ol" x="116" y="140" width="48" height="62" rx="4"/>
+          <rect class="door" x="92" y="22" width="6" height="12"/>
+          <g class="sign">
+            <circle class="sponge ol" cx="95" cy="-6" r="30"/>
+            <path class="jamf" d="M95 -6 L95 -33 A27 27 0 1 1 68 -6 Z"/>
+            <line class="crustl" x1="95" y1="-6" x2="95" y2="-33"/><line class="crustl" x1="95" y1="-6" x2="122" y2="-6"/><line class="crustl" x1="95" y1="-6" x2="95" y2="21"/><line class="crustl" x1="95" y1="-6" x2="68" y2="-6"/>
+            <circle class="ol" cx="95" cy="-6" r="30" fill="none"/>
+          </g>
+          <text class="lbl" x="95" y="232" text-anchor="middle">Zlomková štvrť</text>
+          <text class="sub open" x="95" y="250" text-anchor="middle">8 budov · otvor ma!</text>
+        </g></g>
+      </g>
+
+      <g class="bld" data-id="percenta" tabindex="0" role="button" aria-label="Továreň na percentá, téma Percentá. Čaká na staviteľov.">
+        <g transform="translate(560,172)"><g class="lift">
+          <ellipse class="shadow" cx="85" cy="172" rx="95" ry="10"/>
+          <rect class="gb" x="128" y="-6" width="24" height="50"/>
+          <polygon class="gb" points="0,62 0,30 42,62 42,30 85,62 85,30 128,62 128,30 170,62"/>
+          <rect class="gb" x="0" y="62" width="170" height="108"/>
+          <text class="gtext" x="100" y="142" font-size="56" text-anchor="middle">%</text>
+          <rect class="gd" x="18" y="120" width="30" height="50"/>
+          <text class="lbl" x="85" y="198" text-anchor="middle">Továreň na percentá</text>
+          <text class="sub" x="85" y="216" text-anchor="middle">čaká na staviteľov</text>
+        </g></g>
+      </g>
+
+      <g class="bld" data-id="uhly" tabindex="0" role="button" aria-label="Prístav uhlov, téma Uhly. Čaká na staviteľov.">
+        <g transform="translate(752,300)"><g class="lift">
+          <ellipse class="shadow" cx="25" cy="122" rx="30" ry="7"/>
+          <polygon class="gb" points="8,120 14,30 36,30 42,120"/>
+          <polygon class="gd" points="10.7,80 12,60 38,60 39.3,80"/>
+          <rect class="gd" x="12" y="10" width="26" height="20"/>
+          <polygon class="gb" points="8,10 25,-8 42,10"/>
+          <text class="lbl" x="25" y="144" text-anchor="middle">Prístav uhlov</text>
+          <text class="sub" x="25" y="160" text-anchor="middle">čaká na staviteľov</text>
+        </g></g>
+      </g>
+
+      <g class="bld" data-id="objem" tabindex="0" role="button" aria-label="Sklad kvádrov, téma Kváder a kocka. Čaká na staviteľov.">
+        <g transform="translate(215,410)"><g class="lift">
+          <ellipse class="shadow" cx="59" cy="86" rx="70" ry="8"/>
+          <rect class="gb" x="0" y="40" width="58" height="44"/><rect class="gb" x="60" y="40" width="58" height="44"/><rect class="gb" x="30" y="-6" width="58" height="46"/>
+          <line class="gl" x1="29" y1="40" x2="29" y2="84"/><line class="gl" x1="89" y1="40" x2="89" y2="84"/><line class="gl" x1="59" y1="-6" x2="59" y2="40"/>
+          <text class="lbl" x="59" y="106" text-anchor="middle">Sklad kvádrov</text>
+          <text class="sub" x="59" y="121" text-anchor="middle">čaká na staviteľov</text>
+        </g></g>
+      </g>
+
+      <g class="bld" data-id="zaporne" tabindex="0" role="button" aria-label="Teplomerová veža, téma Záporné čísla. Čaká na staviteľov.">
+        <g transform="translate(560,400)"><g class="lift">
+          <ellipse class="shadow" cx="15" cy="96" rx="28" ry="6"/>
+          <rect class="gb" x="0" y="0" width="30" height="72" rx="15"/>
+          <circle class="gb" cx="15" cy="78" r="18"/>
+          <line class="gl" x1="30" y1="16" x2="38" y2="16"/><line class="gl" x1="30" y1="30" x2="38" y2="30"/><line class="gl" x1="30" y1="44" x2="38" y2="44"/>
+          <text class="lbl" x="15" y="116" text-anchor="middle">Teplomerová veža</text>
+          <text class="sub" x="15" y="131" text-anchor="middle">čaká na staviteľov</text>
+        </g></g>
+      </g>
+    </svg>
+  </div>
+
+  <div class="info" id="info" aria-live="polite" hidden>
+    <p id="info-text"></p>
+    <button type="button" id="info-close" aria-label="Zavrieť">×</button>
+  </div>
+  <div class="cards" id="cards"></div>
+  <p class="foot">Sivé budovy ešte nikto nepostavil. Keď niektorú tému so spolužiakmi spracujete, budova sa zafarbí a bude na nej vaše meno.</p>
+</section>
+
+<!-- ================= DISTRICT ================= -->
+<section id="district" hidden>
+  <div class="intro">
+    <div>
+      <p class="kicker">Mesto čísel</p>
+      <h1>Zlomková štvrť</h1>
+      <p>Osem miest, kde v živote stretneš zlomky. V každej budove zistíš, prečo veci fungujú, a nájdeš úlohy od ľahkých až po súťažné.</p>
+    </div>
+    <button class="btn" type="button" data-nav="mapa">← Na mapu mesta</button>
+  </div>
+
+  <div class="map-frame" style="background: var(--grass)">
+    <svg viewBox="0 0 900 600" role="img" aria-label="Mapa Zlomkovej štvrte s ôsmimi budovami">
+      <rect class="grass" width="900" height="600"/>
+      <rect class="grass-dark" x="0" y="0" width="900" height="600" opacity=".25"/>
+      <rect class="road" x="0" y="290" width="900" height="46"/>
+      <rect class="road" x="427" y="0" width="46" height="600"/>
+      <line class="roadline" x1="0" y1="313" x2="900" y2="313"/>
+      <line class="roadline" x1="450" y1="0" x2="450" y2="600"/>
+      <circle class="grass ol" cx="450" cy="313" r="46"/>
+      <circle class="fountain" cx="450" cy="313" r="22"/>
+      <path class="spray" d="M450 306 q-10 -18 -20 -6 M450 306 q10 -18 20 -6 M450 306 v-16"/>
+      <g class="tree"><rect x="221" y="196" width="8" height="18"/><circle cx="225" cy="192" r="14"/></g>
+      <g class="tree"><rect x="671" y="196" width="8" height="18"/><circle cx="675" cy="192" r="14"/></g>
+      <g class="tree"><rect x="221" y="496" width="8" height="18"/><circle cx="225" cy="492" r="14"/></g>
+      <g class="tree"><rect x="671" y="496" width="8" height="18"/><circle cx="675" cy="492" r="14"/></g>
+      <g class="tree"><rect x="16" y="580" width="8" height="18"/><circle cx="20" cy="576" r="13"/></g>
+      <g class="tree"><rect x="876" y="40" width="8" height="18"/><circle cx="880" cy="36" r="13"/></g>
+
+      <!-- Pekáreň -->
+      <g class="bld" data-go="pekaren" tabindex="0" role="button" aria-label="Zlomková pekáreň: krátenie a rozširovanie">
+        <g transform="translate(112,240)"><g class="lift">
+          <ellipse class="shadow" cx="0" cy="2" rx="88" ry="10"/>
+          <g transform="scale(.78) translate(-95,-202)">
+            <rect class="wall ol" x="0" y="80" width="190" height="122" rx="4"/>
+            <polygon class="roof ol" points="-14,86 95,28 204,86"/>
+            <rect class="a1" x="10" y="104" width="17" height="22"/><rect class="a2" x="27" y="104" width="17" height="22"/><rect class="a1" x="44" y="104" width="17" height="22"/><rect class="a2" x="61" y="104" width="17" height="22"/><rect class="a1" x="78" y="104" width="17" height="22"/><rect class="a2" x="95" y="104" width="17" height="22"/><rect class="a1" x="112" y="104" width="17" height="22"/><rect class="a2" x="129" y="104" width="17" height="22"/><rect class="a1" x="146" y="104" width="17" height="22"/><rect class="a2" x="163" y="104" width="17" height="22"/>
+            <rect class="ol" x="10" y="104" width="170" height="22" fill="none"/>
+            <rect class="glass ol" x="20" y="138" width="64" height="44" rx="3"/>
+            <path class="sponge" d="M28 178 a14 11 0 0 1 28 0 z"/><path class="jamf" d="M56 178 a10 8 0 0 1 20 0 z"/>
+            <rect class="door ol" x="116" y="140" width="48" height="62" rx="4"/>
+            <rect class="door" x="92" y="22" width="6" height="12"/>
+            <g class="sign">
+              <circle class="sponge ol" cx="95" cy="-6" r="30"/>
+              <path class="jamf" d="M95 -6 L95 -33 A27 27 0 1 1 68 -6 Z"/>
+              <line class="crustl" x1="95" y1="-6" x2="95" y2="-33"/><line class="crustl" x1="95" y1="-6" x2="122" y2="-6"/><line class="crustl" x1="95" y1="-6" x2="95" y2="21"/><line class="crustl" x1="95" y1="-6" x2="68" y2="-6"/>
+              <circle class="ol" cx="95" cy="-6" r="30" fill="none"/>
+            </g>
+          </g>
+          <text class="lbl" x="0" y="26" text-anchor="middle">Zlomková pekáreň</text>
+          <text class="sub" x="0" y="43" text-anchor="middle">krátenie a rozširovanie</text>
+        </g></g>
+      </g>
+
+      <!-- Vežové hodiny -->
+      <g class="bld" data-go="hodiny" tabindex="0" role="button" aria-label="Vežové hodiny: zlomok z čísla a sčítanie">
+        <g transform="translate(337,240)"><g class="lift">
+          <ellipse class="shadow" cx="0" cy="2" rx="56" ry="9"/>
+          <rect class="f-clockwall ol" x="-34" y="-165" width="68" height="165"/>
+          <rect class="f-clock" x="-34" y="-165" width="14" height="165" opacity=".25"/>
+          <polygon class="f-clock ol" points="-46,-163 0,-214 46,-163"/>
+          <circle class="f-card ol" cx="0" cy="-124" r="27"/>
+          <path class="f-clock" opacity=".45" d="M0 -124 L0 -148 A24 24 0 0 1 24 -124 Z"/>
+          <line class="inkl" x1="0" y1="-124" x2="19" y2="-124"/>
+          <line class="inkl" x1="0" y1="-124" x2="-6" y2="-110"/>
+          <circle class="f-ink" cx="0" cy="-124" r="3"/>
+          <rect class="glass ol" x="-10" y="-82" width="20" height="26" rx="10"/>
+          <rect class="door ol" x="-14" y="-40" width="28" height="40" rx="14"/>
+          <text class="lbl" x="0" y="26" text-anchor="middle">Vežové hodiny</text>
+          <text class="sub" x="0" y="43" text-anchor="middle">zlomok z čísla, sčítanie</text>
+        </g></g>
+      </g>
+
+      <!-- Hudobná škola -->
+      <g class="bld" data-go="hudba" tabindex="0" role="button" aria-label="Hudobná škola: sčítanie a odčítanie zlomkov">
+        <g transform="translate(562,240)"><g class="lift">
+          <ellipse class="shadow" cx="0" cy="2" rx="86" ry="10"/>
+          <rect class="f-musicwall ol" x="-72" y="-112" width="144" height="112"/>
+          <line class="s-music" x1="-62" y1="-104" x2="62" y2="-104"/><line class="s-music" x1="-62" y1="-99" x2="62" y2="-99"/><line class="s-music" x1="-62" y1="-94" x2="62" y2="-94"/><line class="s-music" x1="-62" y1="-89" x2="62" y2="-89"/><line class="s-music" x1="-62" y1="-84" x2="62" y2="-84"/>
+          <ellipse class="f-ink" cx="-36" cy="-89" rx="4.5" ry="3.2"/><ellipse class="f-ink" cx="-12" cy="-94" rx="4.5" ry="3.2"/><ellipse class="f-ink" cx="12" cy="-99" rx="4.5" ry="3.2"/><ellipse class="f-ink" cx="36" cy="-94" rx="4.5" ry="3.2"/>
+          <rect class="f-music ol" x="-80" y="-128" width="160" height="18" rx="3"/>
+          <rect class="glass ol" x="-58" y="-72" width="28" height="38" rx="14"/>
+          <rect class="glass ol" x="30" y="-72" width="28" height="38" rx="14"/>
+          <rect class="door ol" x="-16" y="-50" width="32" height="50" rx="4"/>
+          <g class="sign">
+            <line class="inkl" x1="14" y1="-140" x2="14" y2="-184" style="stroke-width:4"/>
+            <path class="f-ink" d="M14 -184 q3 16 16 22 q-8 -6 -16 -8 z"/>
+            <ellipse class="f-music ol2" cx="5" cy="-139" rx="11" ry="8" transform="rotate(-20 5 -139)"/>
+          </g>
+          <text class="lbl" x="0" y="26" text-anchor="middle">Hudobná škola</text>
+          <text class="sub" x="0" y="43" text-anchor="middle">sčítanie a odčítanie</text>
+        </g></g>
+      </g>
+
+      <!-- Veža hlavolamov -->
+      <g class="bld" data-go="hlavolamy" tabindex="0" role="button" aria-label="Veža hlavolamov: súťažné úlohy">
+        <g transform="translate(787,240)"><g class="lift">
+          <ellipse class="shadow" cx="0" cy="2" rx="46" ry="9"/>
+          <rect class="f-puzzle ol" x="-32" y="-196" width="16" height="20"/><rect class="f-puzzle ol" x="-8" y="-196" width="16" height="20"/><rect class="f-puzzle ol" x="16" y="-196" width="16" height="20"/>
+          <rect class="f-puzzle ol" x="-32" y="-180" width="64" height="180"/>
+          <rect class="f-white" x="-32" y="-180" width="12" height="180" opacity=".18"/>
+          <text class="qmark" x="0" y="-98" text-anchor="middle">?</text>
+          <rect class="door ol" x="-13" y="-38" width="26" height="38" rx="13"/>
+          <line class="inkl" x1="0" y1="-196" x2="0" y2="-228"/>
+          <polygon class="jamf ol2" points="0,-228 24,-220 0,-212"/>
+          <text class="lbl" x="0" y="26" text-anchor="middle">Veža hlavolamov</text>
+          <text class="sub" x="0" y="43" text-anchor="middle">súťažné úlohy</text>
+        </g></g>
+      </g>
+
+      <!-- Turistický chodník -->
+      <g class="bld" data-go="chodnik" tabindex="0" role="button" aria-label="Turistický chodník: číselná os a porovnávanie zlomkov">
+        <g transform="translate(112,530)"><g class="lift">
+          <ellipse class="shadow" cx="0" cy="2" rx="96" ry="9"/>
+          <polygon class="f-trail ol" points="-96,0 -18,-150 10,-112 40,-140 100,0"/>
+          <polygon class="f-snow" points="-18,-150 -35,-117 -25,-122 -16,-113 -7,-124 2,-123"/>
+          <polygon class="f-snow" points="40,-140 30,-126 38,-128 46,-122 52,-129"/>
+          <path class="s-trailpath" d="M-70 0 L-30 -30 L-60 -62 L-28 -96 L-18 -148"/>
+          <line class="inkl" x1="66" y1="0" x2="66" y2="-50" style="stroke:var(--trunk);stroke-width:5"/>
+          <path class="f-card ol2" d="M42 -66 h44 l8 10 l-8 10 h-44 z"/>
+          <text class="signtext" x="64" y="-51" text-anchor="middle">3/4</text>
+          <text class="lbl" x="0" y="26" text-anchor="middle">Turistický chodník</text>
+          <text class="sub" x="0" y="43" text-anchor="middle">číselná os, porovnávanie</text>
+        </g></g>
+      </g>
+
+      <!-- Pizzeria -->
+      <g class="bld" data-go="pizzeria" tabindex="0" role="button" aria-label="Pizzeria: zmiešané čísla">
+        <g transform="translate(337,530)"><g class="lift">
+          <ellipse class="shadow" cx="0" cy="2" rx="86" ry="10"/>
+          <rect class="f-grey ol" x="40" y="-126" width="16" height="26"/>
+          <rect class="f-pizzawall ol" x="-72" y="-100" width="144" height="100"/>
+          <rect class="f-tomato ol" x="-80" y="-110" width="160" height="12" rx="3"/>
+          <rect class="f-pizza" x="-72" y="-82" width="18" height="18"/><rect class="f-white" x="-54" y="-82" width="18" height="18"/><rect class="f-pizza" x="-36" y="-82" width="18" height="18"/><rect class="f-white" x="-18" y="-82" width="18" height="18"/><rect class="f-pizza" x="0" y="-82" width="18" height="18"/><rect class="f-white" x="18" y="-82" width="18" height="18"/><rect class="f-pizza" x="36" y="-82" width="18" height="18"/><rect class="f-white" x="54" y="-82" width="18" height="18"/>
+          <rect class="ol" x="-72" y="-82" width="144" height="18" fill="none"/>
+          <rect class="glass ol" x="-60" y="-52" width="48" height="34" rx="3"/>
+          <rect class="door ol" x="14" y="-56" width="34" height="56" rx="4"/>
+          <g class="sign">
+            <circle class="f-cheese" cx="0" cy="-140" r="26" style="stroke:var(--pcrust);stroke-width:5"/>
+            <line class="crustl" style="stroke:var(--pcrust)" x1="-26" y1="-140" x2="26" y2="-140"/><line class="crustl" style="stroke:var(--pcrust)" x1="0" y1="-166" x2="0" y2="-114"/>
+            <line class="crustl" style="stroke:var(--pcrust)" x1="-18" y1="-158" x2="18" y2="-122"/><line class="crustl" style="stroke:var(--pcrust)" x1="18" y1="-158" x2="-18" y2="-122"/>
+            <circle class="f-tomato" cx="-9" cy="-150" r="4"/><circle class="f-tomato" cx="10" cy="-133" r="4"/><circle class="f-tomato" cx="-11" cy="-129" r="4"/><circle class="f-tomato" cx="12" cy="-151" r="4"/>
+          </g>
+          <text class="lbl" x="0" y="26" text-anchor="middle">Pizzeria</text>
+          <text class="sub" x="0" y="43" text-anchor="middle">zmiešané čísla</text>
+        </g></g>
+      </g>
+
+      <!-- Záhradníctvo -->
+      <g class="bld" data-go="zahrada" tabindex="0" role="button" aria-label="Záhradníctvo: násobenie zlomkov">
+        <g transform="translate(562,530)"><g class="lift">
+          <ellipse class="shadow" cx="0" cy="2" rx="86" ry="10"/>
+          <polygon class="glass ol" points="-76,-68 0,-122 76,-68"/>
+          <rect class="glass ol" x="-70" y="-70" width="140" height="70"/>
+          <line class="ol2" x1="-35" y1="-70" x2="-35" y2="0"/><line class="ol2" x1="0" y1="-70" x2="0" y2="0"/><line class="ol2" x1="35" y1="-70" x2="35" y2="0"/>
+          <line class="ol2" x1="0" y1="-122" x2="-38" y2="-70"/><line class="ol2" x1="0" y1="-122" x2="38" y2="-70"/>
+          <circle class="f-garden ol2" cx="-52" cy="-14" r="11"/><circle class="f-garden ol2" cx="-18" cy="-16" r="11"/><circle class="f-garden ol2" cx="18" cy="-14" r="11"/>
+          <polygon class="f-carrot ol2" points="44,-30 60,-30 52,-4"/><path class="f-garden" d="M48 -30 l-4 -10 l6 6 l2 -10 l2 10 l6 -6 l-4 10 z"/>
+          <text class="lbl" x="0" y="26" text-anchor="middle">Záhradníctvo</text>
+          <text class="sub" x="0" y="43" text-anchor="middle">násobenie zlomkov</text>
+        </g></g>
+      </g>
+
+      <!-- Limonádový stánok -->
+      <g class="bld" data-go="limonada" tabindex="0" role="button" aria-label="Limonádový stánok: delenie zlomkov">
+        <g transform="translate(787,530)"><g class="lift">
+          <ellipse class="shadow" cx="0" cy="2" rx="76" ry="9"/>
+          <line class="inkl" x1="-56" y1="-54" x2="-56" y2="-118" style="stroke-width:4"/><line class="inkl" x1="56" y1="-54" x2="56" y2="-118" style="stroke-width:4"/>
+          <path class="jamf ol" d="M-74 -116 L74 -116 L62 -150 L-62 -150 Z"/>
+          <path class="f-white" d="M-37 -116 L-31 -150 L-15 -150 L-18 -116 Z M18 -116 L15 -150 L31 -150 L37 -116 Z" opacity=".85"/>
+          <ellipse class="f-lemon ol2" cx="0" cy="-170" rx="24" ry="17"/>
+          <path class="f-garden" d="M14 -186 q14 -8 20 2 q-12 4 -20 -2 z"/>
+          <rect class="f-lemon ol" x="-62" y="-54" width="124" height="54"/>
+          <rect class="f-white" x="-40" y="-54" width="14" height="54" opacity=".5"/><rect class="f-white" x="-7" y="-54" width="14" height="54" opacity=".5"/><rect class="f-white" x="26" y="-54" width="14" height="54" opacity=".5"/>
+          <rect class="glass ol2" x="-34" y="-84" width="22" height="30" rx="3"/>
+          <rect class="f-lemon" x="-32" y="-72" width="18" height="16"/>
+          <polygon class="glass ol2" points="6,-72 20,-72 18,-55 8,-55"/>
+          <polygon class="glass ol2" points="26,-72 40,-72 38,-55 28,-55"/>
+          <text class="lbl" x="0" y="26" text-anchor="middle">Limonádový stánok</text>
+          <text class="sub" x="0" y="43" text-anchor="middle">delenie zlomkov</text>
+        </g></g>
+      </g>
+    </svg>
+  </div>
+
+  <div class="cards" id="dcards"></div>
+  <p class="foot">Všetky témy štvrte patria podľa ŠkVP do sekundy, do celku Racionálne čísla. Primáni tu môžu začať s pekárňou, hodinami a pizzeriou.</p>
+</section>
+
+<!-- ================= BUILDING PAGE ================= -->
+<section id="bpage" hidden></section>
+
+</div>
+
+<script>
+(function () {
+  'use strict';
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const gcd = (a, b) => { a = Math.abs(a); b = Math.abs(b); while (b) { [a, b] = [b, a % b]; } return a || 1; };
+  const F = (a, b, cls = '') => `<span class="frac ${cls}"><span>${a}</span><span>${b}</span></span>`;
+  const M = (w, a, b, cls = '') => `<span class="mixed ${cls}">${w}${F(a, b)}</span>`;
+  const plural = (n, one, few, many) => (n === 1 ? one : n >= 2 && n <= 4 ? few : many);
+  /* value n/d as integer, fraction or mixed number (reduced) */
+  function val(n, d, cls = 'inline') {
+    const g = gcd(n, d); n /= g; d /= g;
+    if (d === 1) return `${n}`;
+    if (n > d) { const w = Math.floor(n / d); return `<span class="mixed">${w}${F(n - w * d, d, cls)}</span>`; }
+    return F(n, d, cls);
+  }
+  const NUMS = ['nula', 'jedna', 'dve', 'tri', 'štyri', 'päť', 'šesť', 'sedem', 'osem', 'deväť', 'desať', 'jedenásť', 'dvanásť'];
+  const WORDS = {
+    2: ['polovica', 'polovice', 'polovíc'], 3: ['tretina', 'tretiny', 'tretín'], 4: ['štvrtina', 'štvrtiny', 'štvrtín'],
+    5: ['pätina', 'pätiny', 'pätín'], 6: ['šestina', 'šestiny', 'šestín'], 7: ['sedmina', 'sedminy', 'sedmín'],
+    8: ['osmina', 'osminy', 'osmín'], 9: ['devätina', 'devätiny', 'devätín'], 10: ['desatina', 'desatiny', 'desatín'],
+    11: ['jedenástina', 'jedenástiny', 'jedenástin'], 12: ['dvanástina', 'dvanástiny', 'dvanástin']
+  };
+  const readFrac = (s, n) => {
+    if (n === 1) return s === 1 ? 'Čítame: jeden celok.' : '';
+    const w = WORDS[n];
+    return `Čítame: ${NUMS[s]} ${s === 0 ? w[2] : plural(s, w[0], w[1], w[2])}.`;
+  };
+  const polar = (deg, r) => { const a = (deg * Math.PI) / 180; return [+(r * Math.cos(a)).toFixed(2), +(r * Math.sin(a)).toFixed(2)]; };
+  const range = (k) => new Set(Array.from({ length: k }, (_, i) => i));
+
+  /* ---------- progress (per viewer, optional) ---------- */
+  const KEY = 'mesto-cisel-v2';
+  let progress = {};
+  try { progress = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { progress = {}; }
+  function markSolved(bid, ti) {
+    const arr = progress[bid] || (progress[bid] = []);
+    if (!arr.includes(ti)) { arr.push(ti); try { localStorage.setItem(KEY, JSON.stringify(progress)); } catch (e) { /* ignore */ } }
+  }
+  let cleanups = [];
+  function cleanup() { cleanups.forEach((f) => { try { f(); } catch (e) { /* ignore */ } }); cleanups = []; }
+
+  /* ================= drawing helpers ================= */
+  const R = 88;
+  function cake({ n, on, prev = 0, angles = null, live = false, pep = false }) {
+    const A = angles || Array.from({ length: n }, (_, i) => -90 + (i * 360) / n);
+    let s = `<circle class="plate" r="97"/>`;
+    if (n === 1) {
+      s += `<circle class="piece ${on.has(0) ? 'on' : 'off'}" r="${R}" data-i="0"${live ? ' tabindex="0" role="button" aria-label="Celý koláč"' : ''}/>`;
+    } else {
+      for (let i = 0; i < n; i++) {
+        const a0 = A[i], a1 = i + 1 < n ? A[i + 1] : A[0] + 360;
+        const [x0, y0] = polar(a0, R), [x1, y1] = polar(a1, R);
+        const label = live ? ` tabindex="0" role="button" aria-label="Kúsok ${i + 1}${on.has(i) ? ', vyznačený' : ''}"` : '';
+        s += `<path class="piece ${on.has(i) ? 'on' : 'off'}" data-i="${i}" d="M0 0 L${x0} ${y0} A${R} ${R} 0 ${a1 - a0 > 180 ? 1 : 0} 1 ${x1} ${y1} Z"${label}/>`;
+      }
+    }
+    if (pep) {
+      for (let i = 0; i < n; i++) {
+        if (!on.has(i)) continue;
+        const mid = A[i] + 180 / n;
+        const [x, y] = polar(mid, 55);
+        s += `<circle class="pep" cx="${x}" cy="${y}" r="9"/>`;
+      }
+    }
+    if (n > 1) {
+      for (let k = 0; k < n; k++) {
+        const isOld = prev > 1 && n % prev === 0 && (k * prev) % n === 0;
+        const [x, y] = polar(A[k], R);
+        s += `<line class="cut${prev && !isOld ? ' new' : ''}" x1="0" y1="0" x2="${x}" y2="${y}"/>`;
+      }
+    }
+    return s + `<circle class="ring" r="${R}"/>`;
+  }
+  const cakeSVG = (opts, cls = 'cake', label = '') =>
+    `<svg class="${cls}" viewBox="-100 -100 200 200" ${label ? `role="img" aria-label="${label}"` : 'aria-hidden="true"'}>${cake(opts)}</svg>`;
+  const wedge = () => `<svg class="wedge" viewBox="-6 -94 100 100" aria-hidden="true"><path class="wpiece" d="M0 0 L0 -86 A86 86 0 0 1 86 0 Z"/><circle class="pizza-pep" cx="30" cy="-30" r="8" style="fill:var(--tomato)"/></svg>`;
+
+  function clockSVG({ sectors = [], hand = null, twelfths = false }) {
+    let s = `<circle class="cface" r="100"/>`;
+    sectors.forEach(({ from, to, cls }) => {
+      if (to - from >= 60) { s += `<circle class="csec ${cls}" r="92"/>`; return; }
+      if (to <= from) return;
+      const [x0, y0] = polar(-90 + from * 6, 92), [x1, y1] = polar(-90 + to * 6, 92);
+      s += `<path class="csec ${cls}" d="M0 0 L${x0} ${y0} A92 92 0 ${to - from > 30 ? 1 : 0} 1 ${x1} ${y1} Z"/>`;
+    });
+    if (twelfths) for (let k = 0; k < 12; k++) { const [x, y] = polar(-90 + k * 30, 92); s += `<line class="twl" x1="0" y1="0" x2="${x}" y2="${y}"/>`; }
+    for (let m = 0; m < 60; m++) {
+      const big = m % 5 === 0;
+      const [x0, y0] = polar(-90 + m * 6, big ? 84 : 89), [x1, y1] = polar(-90 + m * 6, 96);
+      s += `<line class="tk${big ? ' big' : ''}" x1="${x0}" y1="${y0}" x2="${x1}" y2="${y1}"/>`;
+    }
+    for (let h = 1; h <= 12; h++) { const [x, y] = polar(-90 + h * 30, 71); s += `<text class="cnum" x="${x}" y="${y}" text-anchor="middle" dominant-baseline="central">${h}</text>`; }
+    if (hand !== null) { const [x, y] = polar(-90 + hand * 6, 64); s += `<line class="hand" x1="0" y1="0" x2="${x}" y2="${y}"/>`; }
+    return s + `<circle class="cdot" r="5"/>`;
+  }
+  const clockBox = (o, label) => `<svg class="clock" viewBox="-108 -108 216 216" role="img" aria-label="${label}">${clockSVG(o)}</svg>`;
+
+  function nlSVG({ den, max = 2, marks = [], compact = false, decor = false }) {
+    const L = 40, unit = 620 / max, y = compact ? 44 : 104;
+    const X = (v) => +(L + v * unit).toFixed(2);
+    let s = '';
+    if (decor) {
+      s += `<g transform="translate(${X(0)},${y - 18})"><polygon class="d-house" points="-14,0 -14,-16 0,-28 14,-16 14,0"/></g><text class="d-name" x="${X(0)}" y="${y - 52}" text-anchor="middle">chata</text>`;
+      for (let i = 1; i <= max; i++) s += `<g transform="translate(${X(i)},${y - 18})"><polygon class="d-peak" points="-18,0 0,-30 18,0"/><polygon class="d-snow" points="-6,-20 0,-30 6,-20"/></g><text class="d-name" x="${X(i)}" y="${y - 54}" text-anchor="middle">${i === 1 ? 'vrchol' : 'druhý vrchol'}</text>`;
+    }
+    s += `<line class="nl-axis" x1="${L - 12}" y1="${y}" x2="${X(max) + 14}" y2="${y}"/>`;
+    for (let i = 0; i <= den * max; i++) {
+      const int = i % den === 0, x = X(i / den);
+      s += `<line class="nl-tick${int ? ' int' : ''}" x1="${x}" y1="${y - (int ? 12 : 8)}" x2="${x}" y2="${y + (int ? 12 : 8)}"/>`;
+      if (int) s += `<text class="nl-int" x="${x}" y="${y + 36}" text-anchor="middle">${i / den}</text>`;
+      else if (den * max <= 24) s += `<text class="nl-fr" x="${x}" y="${y + 27}" text-anchor="middle">${i}/${den}</text>`;
+    }
+    marks.forEach(({ v, label, cls = '' }) => {
+      const x = X(v);
+      if (compact) s += `<g class="nl-mark ${cls}"><circle cx="${x}" cy="${y}" r="9"/><text x="${x}" y="${y - 17}" text-anchor="middle">${label}</text></g>`;
+      else s += `<g class="nl-mark ${cls}"><line x1="${x}" y1="${y}" x2="${x}" y2="${y - 50}"/><rect x="${x - 28}" y="${y - 78}" width="56" height="28" rx="9"/><text x="${x}" y="${y - 58}" text-anchor="middle">${label}</text><circle cx="${x}" cy="${y}" r="11"/></g>`;
+    });
+    const h = compact ? 92 : 152;
+    return `<svg class="nl" viewBox="0 0 700 ${h}" role="img" aria-label="Číselná os">${s}</svg>`;
+  }
+
+  function noteSVG(v, dotted = false, cls = 'note') {
+    const hollow = v >= 4;
+    let s = `<svg class="${cls}" viewBox="0 0 44 80" aria-hidden="true">`;
+    if (v < 8) s += `<line class="n-stem" x1="25.5" y1="62" x2="25.5" y2="12"/>`;
+    if (v === 1) s += `<path class="n-flag" d="M25.5 12 q3 16 14 22 q-7 -5 -14 -8 z"/>`;
+    s += `<ellipse class="n-head${hollow ? ' hollow' : ''}" cx="17" cy="64" rx="9.5" ry="6.5" transform="rotate(-20 17 64)"/>`;
+    if (dotted) s += `<circle class="n-dot" cx="35" cy="64" r="3.2"/>`;
+    return s + `</svg>`;
+  }
+  const NOTE = { 8: 'celá', 4: 'polová', 2: 'štvrťová', 1: 'osminová' };
+
+  function gardenSVG(a, b, c, d) {
+    const W = 300, H = 200, cw = W / b, ch = H / d;
+    let s = '';
+    for (let i = 0; i < b; i++) for (let j = 0; j < d; j++) {
+      const cls = i < a ? (j < c ? 'g-carrot' : 'g-veg') : 'g-soil';
+      s += `<rect class="${cls}" x="${10 + i * cw}" y="${10 + j * ch}" width="${cw}" height="${ch}"/>`;
+      if (cls === 'g-carrot' && cw > 30 && ch > 26) {
+        const cx = 10 + i * cw + cw / 2, cy = 10 + j * ch + ch / 2;
+        s += `<path class="g-sprout" d="M${cx} ${cy + 6} q-9 -5 -8 -15 q5 3 8 11 q1 -10 7 -14 q3 9 -7 18 z"/>`;
+      }
+    }
+    for (let i = 1; i < b; i++) s += `<line class="g-v" x1="${10 + i * cw}" y1="10" x2="${10 + i * cw}" y2="${10 + H}"/>`;
+    for (let j = 1; j < d; j++) s += `<line class="g-h" x1="10" y1="${10 + j * ch}" x2="${10 + W}" y2="${10 + j * ch}"/>`;
+    s += `<rect class="g-frame" x="10" y="10" width="${W}" height="${H}" rx="6"/>`;
+    return `<svg class="garden" viewBox="0 0 320 220" role="img" aria-label="Záhrada rozdelená na záhony">${s}</svg>`;
+  }
+  const gardenLegend = `<div class="glegend"><span><i style="background:var(--carrot)"></i>mrkva</span><span><i style="background:var(--veg)"></i>iná zelenina</span><span><i style="background:var(--soil)"></i>bez zeleniny</span></div>`;
+
+  let clipN = 0;
+  function cupSVG(f) {
+    const top = 4, bot = 37, yl = bot - (bot - top) * f;
+    const t = (yl - top) / (bot - top);
+    const lx = 3 + t * 4, rx = 27 - t * 4;
+    return `<svg class="cup" viewBox="0 0 30 40" aria-hidden="true"><polygon class="lq" points="${lx},${yl} ${rx},${yl} 23,37 7,37"/><polygon class="cupo" points="3,4 27,4 23,37 7,37"/></svg>`;
+  }
+  /* jug of jn/jd liters poured into cups of cn/cd liters */
+  function lemonHTML(jn, jd, cn, cd, caption = true) {
+    const id = 'jc' + (++clipN);
+    const liters = jn / jd, h = Math.min(1, liters / 3) * 132;
+    const body = 'M20 30 L100 30 L96 160 Q96 166 90 166 L30 166 Q24 166 24 160 Z';
+    const jug = `<svg class="jug" viewBox="0 0 130 175" aria-hidden="true"><defs><clipPath id="${id}"><path d="${body}"/></clipPath></defs><rect class="lq" x="0" y="${166 - h}" width="130" height="${h}" clip-path="url(#${id})"/><path class="jg" d="${body}"/><path class="jg-h" d="M100 48 q26 4 22 40 q-3 22 -24 28"/></svg>`;
+    const num = jn * cd, den = jd * cn, full = Math.floor(num / den), rem = (num % den) / den;
+    let cups = '';
+    for (let i = 0; i < Math.min(full, 24); i++) cups += cupSVG(1);
+    if (rem > 0 && full < 24) cups += cupSVG(rem);
+    const cap = caption ? `<p class="cap">džbán: ${val(jn, jd)} l · pohár: ${val(cn, cd)} l</p>` : '';
+    return { html: `<div class="lemon">${jug}<div class="cups">${cups}</div>${cap}</div>`, full, rem, num, den };
+  }
+
+  /* ================= answers ================= */
+  function parseAns(raw) {
+    const s = String(raw).trim().replace(/\s+/g, ' ').replace(',', '.').replace(/[−–]/g, '-');
+    let m;
+    if ((m = s.match(/^(-?\d+) (\d+) ?\/ ?(\d+)$/))) { const w = +m[1], a = +m[2], b = +m[3]; if (!b) return null; const sg = w < 0 ? -1 : 1; return { n: sg * (Math.abs(w) * b + a), d: b, form: 'mixed', a, b }; }
+    if ((m = s.match(/^(-?\d+) ?\/ ?(\d+)$/))) { const b = +m[2]; if (!b) return null; return { n: +m[1], d: b, form: 'frac' }; }
+    if (/^-?\d+$/.test(s)) return { n: +s, d: 1, form: 'int' };
+    if ((m = s.match(/^(-?)(\d*)\.(\d+)$/))) { const d = 10 ** m[3].length; const n = (+(m[2] || 0)) * d + +m[3]; return { n: m[1] ? -n : n, d, form: 'dec' }; }
+    return null;
+  }
+  const sameVal = (x, y) => x.n * y.d === y.n * x.d;
+  function checkInput(t, raw) {
+    if (typeof t.check === 'function') return t.check(raw);
+    if (t.mode === 'time') {
+      const m = raw.trim().replace('.', ':').match(/^(\d{1,2}):(\d{2})$/);
+      if (!m) return { ok: false, msg: 'Napíš čas v tvare hh:mm, napríklad 19:30.' };
+      return { ok: `${+m[1]}:${m[2]}` === t.ans };
+    }
+    const x = parseAns(raw);
+    if (!x) return { ok: false, msg: 'Tomuto zápisu nerozumiem. Napíš celé číslo, zlomok ako 3/4, zmiešané číslo ako 2 1/3 alebo desatinné číslo ako 0,5.' };
+    const y = parseAns(t.ans);
+    if (!sameVal(x, y)) return { ok: false };
+    if (t.mode === 'lowest') {
+      if (x.form === 'frac' && gcd(x.n, x.d) !== 1) return { ok: false, msg: 'Hodnota je správna, ale zlomok sa dá ešte krátiť. Uprav ho na základný tvar.' };
+      if (x.form === 'dec' || x.form === 'mixed') return { ok: false, msg: 'Hodnota je správna. Napíš ju ako zlomok v základnom tvare.' };
+    }
+    if (t.mode === 'mixed') {
+      if ((x.form === 'frac' && Math.abs(x.n) > x.d) || x.form === 'dec') return { ok: false, msg: 'Hodnota je správna, ale napíš ju ako zmiešané číslo, napríklad 2 1/3.' };
+      if (x.form === 'mixed' && (x.a >= x.b || gcd(x.a, x.b) !== 1)) return { ok: false, msg: 'Hodnota je správna, ale zlomková časť sa dá ešte upraviť.' };
+    }
+    if (t.mode === 'exact' && !(x.n === y.n && x.d === y.d)) return { ok: false, msg: 'Hodnota sedí, ale hľadáme jeden konkrétny zápis. Over, či spĺňa všetky podmienky zo zadania.' };
+    return { ok: true };
+  }
+
+  /* ================= generic widgets ================= */
+  function stepperHTML(cls, label) {
+    return `<div class="controls"><b>${label}</b><div class="stepper"><button type="button" data-st="${cls}-" aria-label="${label}: menej">−</button><output class="${cls}"></output><button type="button" data-st="${cls}+" aria-label="${label}: viac">+</button></div></div>`;
+  }
+
+  function mountPlayer(el, steps) {
+    let i = 0, timer = null;
+    el.innerHTML = `<div class="player"><div class="stage" aria-live="polite"></div><div class="pinfo"><p class="pcount"></p><h3 class="ptitle"></h3><p class="lead ptext"></p><div class="dots"></div><div class="controls"><button class="btn small" type="button" data-p="prev" aria-label="Predchádzajúci krok">←</button><button class="btn primary small" type="button" data-p="play">▶ Prehraj kroky</button><button class="btn small" type="button" data-p="next" aria-label="Ďalší krok">→</button></div></div></div>`;
+    const play = $('[data-p="play"]', el);
+    function render(anim) {
+      const s = steps[i];
+      $('.stage', el).innerHTML = s.stage(anim);
+      $('.pcount', el).textContent = `Krok ${i + 1} z ${steps.length}`;
+      $('.ptitle', el).innerHTML = s.title;
+      $('.ptext', el).innerHTML = s.text;
+      $('.dots', el).innerHTML = steps.map((_, k) => `<i class="${k <= i ? 'on' : ''}"></i>`).join('');
+      $('[data-p="prev"]', el).disabled = i === 0;
+      $('[data-p="next"]', el).disabled = i === steps.length - 1;
+    }
+    function stop() { clearInterval(timer); timer = null; play.textContent = '▶ Prehraj kroky'; }
+    $('[data-p="prev"]', el).addEventListener('click', () => { stop(); i = Math.max(0, i - 1); render(false); });
+    $('[data-p="next"]', el).addEventListener('click', () => { stop(); i = Math.min(steps.length - 1, i + 1); render(true); });
+    play.addEventListener('click', () => {
+      if (timer) { stop(); return; }
+      i = 0; render(true); play.textContent = '❚❚ Zastav';
+      timer = setInterval(() => { if (i >= steps.length - 1) { stop(); return; } i++; render(true); if (i >= steps.length - 1) stop(); }, 3400);
+    });
+    cleanups.push(stop);
+    render(false);
+  }
+
+  const LVL = ['', 'Ľahká', 'Stredná', 'Ťažká'];
+  const LVLP = ['', 'Ľahké', 'Stredné', 'Ťažké'];
+  function mountTasks(el, b) {
+    const solved = new Set(progress[b.id] || []);
+    const groups = [1, 2, 3].map((l) => ({ l, items: b.tasks.map((t, i) => [t, i]).filter(([t]) => t.lvl === l) })).filter((g) => g.items.length);
+    el.innerHTML = groups.map((g) => `<h3 class="group-h">${'★'.repeat(g.l)}${'☆'.repeat(3 - g.l)} ${LVLP[g.l]} úlohy</h3><div class="tasks">${g.items.map(([t, i]) => taskHTML(b, t, i, solved.has(i))).join('')}</div>`).join('') +
+      `<p class="score" aria-live="polite"></p>` +
+      (b.explore_q ? `<div class="explore-q"><h3>Pre bádateľov</h3><p class="say">${b.explore_q.q}</p><label class="sr" for="eq-${b.id}">Tvoja úvaha</label><textarea id="eq-${b.id}" placeholder="Sem si zapíš svoju úvahu. Nikam sa neposiela."></textarea><div><button type="button" class="link" data-act="eqa">Ukáž jednu možnú odpoveď</button></div><p class="sol" hidden>${b.explore_q.a}</p></div>` : '');
+    const score = () => {
+      const n = (progress[b.id] || []).length;
+      $('.score', el).textContent = `Vyriešené: ${n} z ${b.tasks.length}` + (n === b.tasks.length ? ' · Budova je celá tvoja!' : '');
+    };
+    score();
+    function finish(box, ti, ok, msg, t) {
+      const fb = $('.fb', box);
+      fb.className = 'fb ' + (ok ? 'ok' : 'bad');
+      fb.innerHTML = msg;
+      fb.hidden = false;
+      if (ok) {
+        markSolved(b.id, ti); box.classList.add('solved');
+        if (!$('.done-badge', box)) $('.qh', box).insertAdjacentHTML('beforeend', '<span class="done-badge">vyriešené</span>');
+        score();
+      }
+    }
+    el.addEventListener('click', (e) => {
+      const opt = e.target.closest('.opt');
+      if (opt && !opt.disabled) {
+        const box = opt.closest('.q'), ti = +box.dataset.t, t = b.tasks[ti], oi = +opt.dataset.o;
+        $$('.opt', box).forEach((o) => { o.disabled = true; if (+o.dataset.o === t.a) o.classList.add('right'); else if (o === opt) o.classList.add('wrong'); });
+        const ok = oi === t.a;
+        finish(box, ti, ok, (ok ? 'Správne! ' : 'Tentoraz nie. ') + (t.sol || ''), t);
+        const s = $('[data-act="sol"]', box); if (s) s.hidden = true;
+        return;
+      }
+      const act = e.target.closest('[data-act]');
+      if (!act) return;
+      if (act.dataset.act === 'eqa') { act.parentElement.nextElementSibling.hidden = false; act.hidden = true; return; }
+      const box = act.closest('.q');
+      if (act.dataset.act === 'hint') $('.hint', box).hidden = false;
+      if (act.dataset.act === 'sol') $('.sol', box).hidden = false;
+    });
+    el.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const box = e.target.closest('.q'), ti = +box.dataset.t, t = b.tasks[ti], inp = $('.inp', box);
+      if (!inp.value.trim()) return;
+      const r = checkInput(t, inp.value);
+      if (r.ok) { inp.disabled = true; $('button[type="submit"]', box).disabled = true; }
+      finish(box, ti, r.ok, r.ok ? 'Správne! Výborne.' : (r.msg || 'Ešte nie. Skús znova alebo si pozri nápovedu.'), t);
+    });
+  }
+  function taskHTML(b, t, i, done) {
+    let body;
+    if (t.kind === 'choice') body = `<div class="opts">${t.opts.map((o, oi) => `<button type="button" class="opt" data-o="${oi}">${o}</button>`).join('')}</div>`;
+    else body = `<form class="ans" autocomplete="off"><label class="sr" for="in-${b.id}-${i}">Odpoveď</label><input id="in-${b.id}-${i}" class="inp" type="text" inputmode="text" placeholder="${t.ph || 'napr. 3/4 alebo 2 1/3'}"><button class="btn primary small" type="submit">Skontroluj</button></form>`;
+    return `<article class="q${done ? ' solved' : ''}" data-t="${i}">
+      <header class="qh"><span class="stars" aria-hidden="true">${'★'.repeat(t.lvl)}${'☆'.repeat(3 - t.lvl)}</span><span>${LVL[t.lvl]} · úloha ${i + 1}</span>${done ? '<span class="done-badge">vyriešené</span>' : ''}</header>
+      <p class="say">${t.q}</p>${body}<p class="fb" hidden></p>
+      <div class="qtools">${t.hint ? '<button type="button" class="link" data-act="hint">Nápoveda</button>' : ''}${t.sol && t.kind !== 'choice' ? '<button type="button" class="link" data-act="sol">Ukáž riešenie</button>' : ''}</div>
+      <p class="hint" hidden>${t.hint || ''}</p><p class="sol" hidden>${t.sol || ''}</p></article>`;
+  }
+
+  /* ================= buildings ================= */
+  const chips = (arr) => `<div class="stack"><h3>Kde ešte stretneš zlomky?</h3><div class="chips">${arr.map((c) => `<span class="chip">${c}</span>`).join('')}</div></div>`;
+
+  const B = [];
+
+  /* ---------- 1. Pekáreň ---------- */
+  B.push({
+    id: 'pekaren', name: 'Zlomková pekáreň', color: '--b-bake', short: 'Pojem zlomku, krátenie, rozširovanie',
+    skvp: 'ŠkVP, sekunda: zlomky, základný tvar zlomku, krátenie a rozširovanie',
+    scene: () => `
+      <div class="two">
+        <div class="stack">
+          <h2>Jeden koláč, štyria kamaráti</h2>
+          <p class="lead">V pekárni upiekli jahodový koláč. Prišli štyria kamaráti a chcú si ho rozdeliť spravodlivo. Pekár ho preto rozkrojí na <b>4 rovnaké kúsky</b>.</p>
+          <p class="lead">Každý dostane jeden kúsok zo štyroch. Hovoríme mu <b>jedna štvrtina</b> a píšeme ho takto:</p>
+          <div class="anat">
+            <span class="frac huge"><span class="top">1</span><span>4</span></span>
+            <div class="anat-l"><p><b>čitateľ</b>koľko kúskov máš</p><p><b>menovateľ</b>na koľko rovnakých kúskov je koláč rozkrojený</p></div>
+          </div>
+        </div>
+        ${cakeSVG({ n: 4, on: new Set([0]) }, 'cake', 'Koláč rozkrojený na 4 kúsky, jeden je zafarbený')}
+      </div>
+      <div class="stack">
+        <h3>Pozor: kúsky musia byť rovnaké</h3>
+        <div class="compare">
+          <figure>${cakeSVG({ n: 4, on: new Set([0]) }, 'cake mini')}<figcaption class="yes">✓ Toto je ${F(1, 4, 'inline')}</figcaption></figure>
+          <figure>${cakeSVG({ n: 4, on: new Set([1]), angles: [-90, 0, 40, 200] }, 'cake mini')}<figcaption class="no">✗ Toto nie je ${F(1, 4, 'inline')}.<br>Kúsky nie sú rovnaké.</figcaption></figure>
+        </div>
+      </div>
+      ${chips([F(1, 2, 'inline') + ' litra mlieka', F(1, 4, 'inline') + ' hodiny je 15 minút', F(3, 4, 'inline') + ' triedy išli na výlet', 'zľava ' + F(1, 2, 'inline') + ' ceny'])}`,
+    explore: {
+      title: 'Rozkroj si koláč sám', lead: 'Vyber, na koľko kúskov koláč rozkrojíš. Potom klikaj na kúsky, ktoré chceš vyznačiť.',
+      mount(el) {
+        el.innerHTML = `<div class="two"><div class="stack">${stepperHTML('nv', 'Počet kúskov')}
+          <div class="readout"><span class="frac big lf"></span><div class="stack" style="gap:4px"><p class="say ls"></p><p class="words lw"></p></div></div></div>
+          <svg class="cake live" viewBox="-100 -100 200 200" aria-label="Koláč, na ktorý sa dá klikať"></svg></div>
+          <div class="task"><h3>Úloha</h3><div class="task-row"><p class="say tt"></p><button class="btn primary small" type="button" data-c="check">Skontroluj</button><button class="btn small" type="button" data-c="new">Nová úloha</button></div><p class="fb" hidden></p></div>`;
+        const st = { n: 4, on: new Set([0]) }, svg = $('.cake', el), fb = $('.fb', el);
+        const TASKS = [[3, 8], [2, 5], [5, 6], [1, 3], [7, 10], [3, 4], [2, 3], [5, 12], [4, 9], [7, 12]];
+        let task = TASKS[0];
+        function render() {
+          const { n, on } = st, s = on.size;
+          svg.innerHTML = cake({ n, on, live: true });
+          $('.nv', el).textContent = n;
+          $('[data-st="nv-"]', el).disabled = n <= 1; $('[data-st="nv+"]', el).disabled = n >= 12;
+          $('.lf', el).innerHTML = `<span class="top">${s}</span><span>${n}</span>`;
+          let say;
+          if (n === 1) say = s ? 'Koláč je celý a vyznačený je celý.' : 'Koláč je celý, nerozkrojený. Klikni naň.';
+          else {
+            say = `Koláč je rozkrojený na ${n} ${plural(n, '', 'rovnaké kúsky', 'rovnakých kúskov')}. `;
+            if (s === 0) say += 'Klikni na kúsok a vyznač ho.';
+            else if (s === n) say += `Vyznačené sú všetky kúsky, teda celý koláč: ${F(n, n, 'inline')} = 1.`;
+            else say += `${plural(s, 'Vyznačený je', 'Vyznačené sú', 'Vyznačených je')} ${s} ${plural(s, 'kúsok', 'kúsky', 'kúskov')}.` + (gcd(s, n) > 1 ? ` V základnom tvare je to ${F(s / gcd(s, n), n / gcd(s, n), 'inline')}.` : '');
+          }
+          $('.ls', el).innerHTML = say;
+          $('.lw', el).textContent = readFrac(s, n);
+          $('.tt', el).innerHTML = `Vyznač ${F(task[0], task[1], 'inline')} koláča.`;
+        }
+        svg.addEventListener('click', (e) => {
+          const p = e.target.closest('.piece'); if (!p) return;
+          const i = +p.dataset.i; st.on.has(i) ? st.on.delete(i) : st.on.add(i);
+          render(); fb.hidden = true;
+          if (e.detail === 0) { const again = $(`.piece[data-i="${i}"]`, svg); if (again) again.focus(); }
+        });
+        svg.addEventListener('keydown', (e) => {
+          if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('piece')) { e.preventDefault(); e.target.dispatchEvent(new MouseEvent('click', { bubbles: true, detail: 0 })); }
+        });
+        el.addEventListener('click', (e) => {
+          const t = e.target.closest('[data-st],[data-c]'); if (!t) return;
+          if (t.dataset.st) { st.n = Math.max(1, Math.min(12, st.n + (t.dataset.st.endsWith('+') ? 1 : -1))); st.on = new Set([...st.on].filter((i) => i < st.n)); render(); fb.hidden = true; }
+          if (t.dataset.c === 'new') { let nt; do { nt = TASKS[Math.floor(Math.random() * TASKS.length)]; } while (nt === task); task = nt; fb.hidden = true; render(); }
+          if (t.dataset.c === 'check') {
+            const [c, d] = task, n = st.n, s = st.on.size;
+            let ok = false, msg;
+            if (n === d && s === c) { ok = true; msg = `Presne tak! Toto je ${F(c, d, 'inline')} koláča.`; }
+            else if (s > 0 && s * d === c * n) msg = `Koláča je presne toľko, koľko treba! Úloha však chce koláč rozkrojený na ${d} ${plural(d, '', 'kúsky', 'kúskov')}. Prečo je to rovnako veľa, uvidíš v kroku 3.`;
+            else if (n !== d) msg = `Najprv rozkroj koláč na ${d} ${plural(d, '', 'rovnaké kúsky', 'rovnakých kúskov')}. Na to slúži menovateľ.`;
+            else msg = `Koláč máš rozkrojený dobre. Teraz vyznač ${c} ${plural(c, 'kúsok', 'kúsky', 'kúskov')}. Na to slúži čitateľ.`;
+            fb.className = 'fb ' + (ok ? 'ok' : 'bad'); fb.innerHTML = msg; fb.hidden = false;
+          }
+        });
+        render();
+      }
+    },
+    why: {
+      title: 'Prečo je polovica to isté ako dve štvrtiny?',
+      steps: [
+        { title: 'Toto je celý koláč.', text: 'Celý koláč je jeden celok.', stage: () => `<div class="row">${cakeSVG({ n: 1, on: range(1) })}${F(1, 1, 'big')}</div>` },
+        { title: 'Rozkrojíme ho na polovice.', text: 'Máme 2 rovnaké kúsky. Jeden z nich zafarbíme. To je jedna polovica.', stage: (a) => `<div class="row">${cakeSVG({ n: 2, on: range(1), prev: a ? 1 : 0 })}${F(1, 2, 'big')}</div>` },
+        { title: 'Každú polovicu rozkrojíme ešte raz.', text: 'Teraz sú kúsky 4 a zafarbené sú 2. To sú dve štvrtiny. Zafarbeného koláča je stále rovnako veľa!', stage: (a) => `<div class="row">${cakeSVG({ n: 4, on: range(2), prev: a ? 2 : 0 })}${F(2, 4, 'big')}</div>` },
+        { title: 'A ešte raz.', text: 'Kúskov je 8 a zafarbené sú 4. To sú štyri osminy. Koláča je stále rovnako veľa. Takejto úprave hovoríme <b>rozširovanie</b>.', stage: (a) => `<div class="row">${cakeSVG({ n: 8, on: range(4), prev: a ? 4 : 0 })}${F(4, 8, 'big')}</div>` },
+        { title: 'Teraz naopak: spájame kúsky.', text: 'Vždy dva susedné kúsky spojíme do jedného. Z 8 kúskov sú 4 a zo 4 zafarbených sú 2. Tomu hovoríme <b>krátenie</b>: 4/8 = 2/4.', stage: () => `<div class="row">${cakeSVG({ n: 4, on: range(2) })}${F(2, 4, 'big')}</div>` },
+        { title: 'Spojíme ešte raz.', text: '2/4 = 1/2. Čitateľa a menovateľa už nevydelíme rovnakým číslom väčším ako 1. Takýto zlomok je v <b>základnom tvare</b>.', stage: () => `<div class="row">${cakeSVG({ n: 2, on: range(1) })}${F(1, 2, 'big')}</div>` },
+        { title: 'Tri zápisy, jeden koláč.', text: 'Zlomky 1/2, 2/4 a 4/8 vyzerajú inak, ale znamenajú rovnaké množstvo koláča.', stage: () => `<div class="trio">${[[2, 1], [4, 2], [8, 4]].map(([n, f], i) => `${i ? '<span class="eq">=</span>' : ''}<figure>${cakeSVG({ n, on: range(f) })}${F(f, n)}</figure>`).join('')}</div>` }
+      ],
+      rule: `<p><b>Rozširovanie:</b> čitateľa aj menovateľa vynásobíme tým istým číslom. <b>Krátenie:</b> čitateľa aj menovateľa vydelíme tým istým číslom. Hodnota zlomku sa ani raz nezmení.</p>
+        <div class="ex">${F(1, 2)} = ${F('1 · 4', '2 · 4')} = ${F(4, 8)} <span style="margin-left:24px"></span> ${F(12, 18)} = ${F('12 : 6', '18 : 6')} = ${F(2, 3)}</div>
+        <p>Najrýchlejšie sa ku základnému tvaru dostaneš, keď krátiš najväčším spoločným deliteľom (NSD) čitateľa a menovateľa.</p>`,
+      tip: `<p>Starí Egypťania zapisovali skoro všetky zlomky ako súčet rôznych zlomkov, ktoré majú hore jednotku. Namiesto ${F(3, 4, 'inline')} písali ${F(1, 2, 'inline')} + ${F(1, 4, 'inline')}. Ako by zapísali ${F(5, 8, 'inline')}? <button type="button" class="link" data-reveal>Ukáž odpoveď</button></p><p hidden>${F(5, 8, 'inline')} = ${F(1, 2, 'inline')} + ${F(1, 8, 'inline')}, lebo ${F(1, 2, 'inline')} = ${F(4, 8, 'inline')}.</p>`
+    },
+    tasks: [
+      { lvl: 1, kind: 'choice', q: 'Pekár má dva rovnaké koláče. Prvý rozkrojil na 3 rovnaké kúsky, druhý na 5. Ktorý kúsok je väčší?', opts: [F(1, 3) + ' koláča', F(1, 5) + ' koláča', 'sú rovnaké'], a: 0, sol: 'Čím na viac kúskov koláč rozkrojíš, tým sú kúsky menšie. Preto je tretina väčšia ako pätina.' },
+      { lvl: 1, kind: 'choice', q: `Ktorý zlomok je rovnako veľa ako ${F(1, 2, 'inline')}?`, opts: [F(2, 3), F(3, 6), F(2, 5)], a: 1, sol: '3 kúsky zo 6 sú presne polovica. Čitateľ aj menovateľ sme vynásobili tromi.' },
+      { lvl: 2, kind: 'input', q: `Doplň chýbajúci čitateľ: ${F(3, 5, 'inline')} = ${F('?', 20, 'inline')}`, ans: '12', ph: 'napr. 8', hint: 'Akým číslom treba vynásobiť 5, aby vyšlo 20?', sol: '5 · 4 = 20, preto aj 3 · 4 = 12.' },
+      { lvl: 2, kind: 'input', mode: 'lowest', q: `Uprav zlomok ${F(84, 126, 'inline')} na základný tvar.`, ans: '2/3', hint: 'Skús krátiť postupne: najprv 2, potom 3, potom 7. Alebo nájdi NSD(84, 126).', sol: 'NSD(84, 126) = 42. 84 : 42 = 2 a 126 : 42 = 3, teda 84/126 = 2/3.' },
+      { lvl: 3, kind: 'input', q: `Pekár rozkrojil koláč na rovnaké kúsky. Keď predal 6 kúskov, zostali mu ${F(3, 5, 'inline')} koláča. Na koľko kúskov koláč rozkrojil?`, ans: '15', ph: 'napr. 10', hint: 'Akú časť koláča tvorí tých 6 predaných kúskov?', sol: 'Predal 1 − 3/5 = 2/5 koláča. Ak 2/5 je 6 kúskov, 1/5 sú 3 kúsky a celý koláč 5 · 3 = 15 kúskov.' },
+      { lvl: 3, kind: 'choice', q: 'Ktorý zlomok je väčší?', opts: [F(2024, 2025), F(2025, 2026), 'sú rovnaké'], a: 1, hint: 'Koľko chýba každému zlomku do 1 celku?', sol: 'Zlomku 2024/2025 chýba do celku 1/2025, zlomku 2025/2026 chýba len 1/2026. Menej mu chýba, preto je 2025/2026 väčší.' },
+      { lvl: 3, kind: 'input', q: `Koľko zlomkov s menovateľom 12 je v základnom tvare a leží medzi 0 a 1?`, ans: '4', ph: 'napr. 5', hint: 'Vypíš si 1/12, 2/12, … 11/12 a vyškrtni tie, ktoré sa dajú krátiť.', sol: 'V základnom tvare sú len 1/12, 5/12, 7/12 a 11/12. Ostatné čitatele majú s 12 spoločného deliteľa 2 alebo 3.' }
+    ],
+    explore_q: { q: 'Koľko rôznych zápisov má zlomok 1/2? A dá sa nájsť zlomok, ktorý sa nedá rozšíriť?', a: 'Nekonečne veľa: 1/2, 2/4, 3/6, 4/8, … Každý zlomok môžeme rozšíriť ľubovoľným prirodzeným číslom, takže každý zlomok má nekonečne veľa zápisov. Krátiť sa však dá len konečne veľakrát, kým neprídeme k základnému tvaru.' }
+  });
+
+  /* ---------- 2. Vežové hodiny ---------- */
+  const DENS = [2, 3, 4, 5, 6, 10, 12];
+  B.push({
+    id: 'hodiny', name: 'Vežové hodiny', color: '--b-clock', short: 'Zlomok z čísla, sčítanie zlomkov',
+    skvp: 'ŠkVP, sekunda: operácie so zlomkami, sčítanie racionálnych čísel; časť celku',
+    scene: () => `
+      <div class="two">
+        <div class="stack">
+          <h2>Štvrť na osem</h2>
+          <p class="lead">Keď povieš „štvrť na osem“, používaš zlomok. Hodina má 60 minút a štvrtina z nej je 15 minút. Štvrť na osem je teda 7:15.</p>
+          <p class="lead">Na ciferníku to vidno najlepšie: celý kruh je jedna hodina. Každý zlomok hodiny je výsek kruhu.</p>
+        </div>
+        ${clockBox({ sectors: [{ from: 0, to: 15, cls: 'a' }], hand: 15 }, 'Ciferník so zvýraznenou štvrtinou hodiny')}
+      </div>
+      ${chips([F(1, 2, 'inline') + ' hodiny = 30 minút', 'vyučovacia hodina: ' + F(3, 4, 'inline') + ' hodiny', 'prestávka: ' + F(1, 6, 'inline') + ' hodiny', '„trištvrte na osem“ = 7:45'])}`,
+    explore: {
+      title: 'Koľko minút je zlomok hodiny?', lead: 'Nastav menovateľa a čitateľa. Ciferník ukáže, akú časť hodiny si vybral, a vypočíta minúty.',
+      mount(el) {
+        el.innerHTML = `<div class="two"><div class="stack">${stepperHTML('dv', 'Menovateľ')}${stepperHTML('nv', 'Čitateľ')}
+          <div class="readout"><span class="frac big cf"></span><div class="stack" style="gap:4px"><p class="say cs"></p><p class="words cw"></p></div></div></div><div class="cbox"></div></div>`;
+        const st = { di: 2, n: 1 };
+        function render() {
+          const d = DENS[st.di], m = (60 / d) * st.n;
+          $('.cbox', el).innerHTML = clockBox({ sectors: [{ from: 0, to: m, cls: 'a' }], hand: m % 60 }, `Ciferník: ${st.n}/${d} hodiny`);
+          $('.dv', el).textContent = d; $('.nv', el).textContent = st.n;
+          $('[data-st="dv-"]', el).disabled = st.di === 0; $('[data-st="dv+"]', el).disabled = st.di === DENS.length - 1;
+          $('[data-st="nv-"]', el).disabled = st.n === 0; $('[data-st="nv+"]', el).disabled = st.n === d;
+          $('.cf', el).innerHTML = `<span class="top">${st.n}</span><span>${d}</span>`;
+          $('.cs', el).innerHTML = `${F(st.n, d, 'inline')} hodiny = 60 : ${d} · ${st.n} = <b>${m} minút</b>`;
+          $('.cw', el).textContent = `Jedna ${WORDS[d][0]} hodiny má ${60 / d} minút.`;
+        }
+        el.addEventListener('click', (e) => {
+          const t = e.target.closest('[data-st]'); if (!t) return;
+          const up = t.dataset.st.endsWith('+');
+          if (t.dataset.st.startsWith('dv')) {
+            const oldD = DENS[st.di];
+            st.di = Math.max(0, Math.min(DENS.length - 1, st.di + (up ? 1 : -1)));
+            st.n = Math.min(DENS[st.di], Math.round((st.n / oldD) * DENS[st.di]));
+          } else st.n = Math.max(0, Math.min(DENS[st.di], st.n + (up ? 1 : -1)));
+          render();
+        });
+        render();
+      }
+    },
+    why: {
+      title: 'Prečo je tretina a štvrtina hodiny spolu 7/12 hodiny?',
+      steps: [
+        { title: 'Tretina hodiny', text: '1/3 hodiny = 60 : 3 = 20 minút.', stage: () => `${clockBox({ sectors: [{ from: 0, to: 20, cls: 'a' }] }, 'Tretina hodiny')}<div class="eqn">${F(1, 3)} h = 20 min</div>` },
+        { title: 'Pridáme štvrtinu hodiny', text: '1/4 hodiny = 60 : 4 = 15 minút. Položíme ju hneď za tretinu.', stage: () => `${clockBox({ sectors: [{ from: 0, to: 20, cls: 'a' }, { from: 20, to: 35, cls: 'b' }] }, 'Tretina a štvrtina hodiny')}<div class="eqn">20 min + 15 min</div>` },
+        { title: 'Spolu 35 minút', text: 'Spolu je to 20 + 15 = 35 minút. Ale akú časť hodiny tvorí 35 minút?', stage: () => `${clockBox({ sectors: [{ from: 0, to: 20, cls: 'a' }, { from: 20, to: 35, cls: 'b' }], hand: 35 }, '35 minút')}<div class="eqn">= 35 min</div>` },
+        { title: 'Ciferník má 12 dielikov', text: 'Čísla 1 až 12 delia ciferník na 12 rovnakých dielikov po 5 minút. Každý dielik je 1/12 hodiny. 35 minút je 7 dielikov, teda 7/12 hodiny.', stage: () => `${clockBox({ sectors: [{ from: 0, to: 20, cls: 'a' }, { from: 20, to: 35, cls: 'b' }], twelfths: true }, 'Ciferník rozdelený na dvanástiny')}<div class="eqn">35 min = ${F(7, 12)} h</div>` },
+        { title: 'To isté so zlomkami', text: 'Tretina sú 4 dieliky a štvrtina 3 dieliky. Oba zlomky sme rozšírili na <b>spoločný menovateľ</b> 12 a potom sčítali čitateľov.', stage: () => `${clockBox({ sectors: [{ from: 0, to: 20, cls: 'a' }, { from: 20, to: 35, cls: 'b' }], twelfths: true }, 'Ciferník rozdelený na dvanástiny')}<div class="eqn">${F(1, 3)} + ${F(1, 4)} = ${F(4, 12)} + ${F(3, 12)} = ${F(7, 12)}</div>` }
+      ],
+      rule: `<p>Zlomky s rôznymi menovateľmi najprv rozšírime na spoločný menovateľ. Potom sčítame čitateľov a menovateľa ponecháme. Najmenší spoločný menovateľ je najmenší spoločný násobok (nsn) menovateľov.</p><div class="ex">${F(1, 3)} + ${F(1, 4)} = ${F(4, 12)} + ${F(3, 12)} = ${F(7, 12)}</div>`,
+      tip: `<p>Hodinu delíme na 60 minút vďaka starým Babylončanom, ktorí počítali v šesťdesiatkovej sústave. Číslo 60 má až 12 deliteľov (1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60), preto sa s ním v zlomkoch počíta tak pohodlne.</p>`
+    },
+    tasks: [
+      { lvl: 1, kind: 'input', q: `Koľko minút je ${F(3, 4, 'inline')} hodiny?`, ans: '45', ph: 'počet minút', sol: '60 : 4 = 15, 15 · 3 = 45 minút.' },
+      { lvl: 1, kind: 'input', q: `Koľko minút je ${F(2, 5, 'inline')} hodiny?`, ans: '24', ph: 'počet minút', sol: '60 : 5 = 12, 12 · 2 = 24 minút.' },
+      { lvl: 2, kind: 'input', mode: 'lowest', q: 'Aká časť hodiny je 40 minút? Napíš zlomok v základnom tvare.', ans: '2/3', sol: '40/60 = 2/3 (krátime číslom 20).' },
+      { lvl: 2, kind: 'input', q: `Adam sa učil ${F(1, 2, 'inline')} hodiny matematiku a ${F(1, 3, 'inline')} hodiny angličtinu. Akú časť hodiny sa učil spolu?`, ans: '5/6', hint: 'Spoločný menovateľ je 6. Alebo si to preveď na minúty.', sol: '1/2 + 1/3 = 3/6 + 2/6 = 5/6 hodiny, teda 50 minút.' },
+      { lvl: 3, kind: 'input', mode: 'time', q: `Film trvá ${M(1, 3, 4, '')} hodiny. Začal o 18:40. O koľkej skončí?`, ans: '20:25', ph: 'napr. 19:30', hint: 'Koľko hodín a minút je 1 3/4 hodiny?', sol: '1 3/4 h = 1 h 45 min. 18:40 + 1 h = 19:40, + 45 min = 20:25.' },
+      { lvl: 3, kind: 'input', q: 'Hodinová ručička sa za 12 hodín otočí raz dokola. Akú časť celého kruhu prejde za 20 minút?', ans: '1/36', hint: 'Akú časť kruhu prejde za 1 hodinu? A akú časť hodiny tvorí 20 minút?', sol: 'Za 1 hodinu prejde 1/12 kruhu. 20 minút je 1/3 hodiny, preto prejde 1/3 z 1/12 = 1/36 kruhu.' },
+      { lvl: 3, kind: 'input', q: 'O 3:00 zvierajú ručičky pravý uhol. Akú časť celého kruhu prejde minútová ručička, kým po prvý raz dobehne hodinovú ručičku?', ans: '3/11', hint: 'Minútová ručička je o 1/4 kruhu pozadu. Každú hodinu je o 11/12 kruhu rýchlejšia ako hodinová.', sol: 'Za hodinu minútová prejde 1 kruh a hodinová 1/12 kruhu, rozdiel je 11/12 kruhu za hodinu. Treba dobehnúť 1/4 kruhu: 1/4 : 11/12 = 3/11 hodiny. Za ten čas minútová ručička prejde 3/11 kruhu (asi 16 minút a 22 sekúnd).' }
+    ],
+    explore_q: { q: 'Ktoré zlomky hodiny s čitateľom 1 sú celé počty minút? Koľko ich je a prečo práve tieto?', a: 'Sú to 1/2, 1/3, 1/4, 1/5, 1/6, 1/10, 1/12, 1/15, 1/20, 1/30 a 1/60 hodiny (plus celá hodina). Menovateľ musí byť deliteľom čísla 60. Keby mala hodina 100 minút, takých zlomkov by bolo menej: 100 má len 9 deliteľov a nedá sa deliť tromi.' }
+  });
+
+  /* ---------- 3. Hudobná škola ---------- */
+  const METERS = { '2/4': 4, '3/4': 6, '4/4': 8, '6/8': 6 };
+  let actx = null;
+  function playNotes(notes, onStep) {
+    try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return () => {}; }
+    if (actx.state === 'suspended') actx.resume();
+    const pitches = [523.25, 587.33, 659.25, 783.99, 880, 783.99, 659.25, 587.33];
+    const eighth = 0.28; let t = actx.currentTime + 0.05; const timers = [];
+    notes.forEach((v, i) => {
+      const o = actx.createOscillator(), g = actx.createGain(), dur = v * eighth;
+      o.type = 'triangle'; o.frequency.value = pitches[i % pitches.length];
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.22, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + dur * 0.92);
+      o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t + dur);
+      timers.push(setTimeout(() => onStep(i), (t - actx.currentTime) * 1000));
+      t += dur;
+    });
+    timers.push(setTimeout(() => onStep(-1), (t - actx.currentTime) * 1000));
+    return () => timers.forEach(clearTimeout);
+  }
+  const cellBar = (parts) => `<div class="cbar">${parts.map((p) => `<div class="cseg${p.v ? ' fill' : ''}" style="flex:${p.len} 1 0">${p.v ? noteSVG(p.v, false, 'note sm') : ''}<div class="cells">${'<i></i>'.repeat(p.len)}</div></div>`).join('')}</div>`;
+  B.push({
+    id: 'hudba', name: 'Hudobná škola', color: '--b-music', short: 'Sčítanie a odčítanie zlomkov',
+    skvp: 'ŠkVP, sekunda: sčítanie a odčítanie racionálnych čísel, spoločný menovateľ',
+    scene: () => `
+      <div class="two">
+        <div class="stack">
+          <h2>Noty sú zlomky</h2>
+          <p class="lead">Dĺžka tónu sa v hudbe zapisuje notami. Celá nota trvá celý takt 4/4. Polová nota trvá polovicu, štvrťová štvrtinu a osminová osminu.</p>
+          <p class="lead">Na začiatku skladby je napísaný <b>takt</b>, napríklad ${F(3, 4, 'inline')}. Do jedného taktu sa zmestia noty, ktoré dajú spolu presne ${F(3, 4, 'inline')}.</p>
+        </div>
+        <div class="notes-legend">${[8, 4, 2, 1].map((v) => `<figure>${noteSVG(v)}${val(v, 8, '')}<span>${NOTE[v]}</span></figure>`).join('')}</div>
+      </div>
+      ${chips(['valčík: takt ' + F(3, 4, 'inline'), 'pochod: takt ' + F(2, 4, 'inline'), 'väčšina popových piesní: ' + F(4, 4, 'inline'), 'bodka predĺži notu o polovicu'])}`,
+    explore: {
+      title: 'Poskladaj takt', lead: 'Vyber takt a pridávaj noty. Spočítam, koľko taktu je plné, a môžeš si ho aj zahrať.',
+      mount(el) {
+        el.innerHTML = `<div class="stack">
+          <div class="controls"><b>Takt</b><div class="seg" role="group" aria-label="Takt">${Object.keys(METERS).map((m) => `<button type="button" data-m="${m}">${F(m.split('/')[0], m.split('/')[1])}</button>`).join('')}</div></div>
+          <div class="barbox"></div>
+          <p class="say bsum"></p><p class="fb bst"></p>
+          <div class="controls">${[8, 4, 2, 1].map((v) => `<button type="button" class="notebtn" data-v="${v}" aria-label="Pridať ${NOTE[v]} notu">${noteSVG(v, false, 'note sm')}${val(v, 8, '')}</button>`).join('')}
+            <button class="btn small" type="button" data-c="undo">Späť</button><button class="btn small" type="button" data-c="clear">Vymazať</button><button class="btn primary small" type="button" data-c="play">▶ Zahraj</button></div></div>`;
+        const st = { m: '3/4', notes: [4, 2] }; let stopAudio = null;
+        function render() {
+          const cap = METERS[st.m], total = st.notes.reduce((a, b) => a + b, 0), span = Math.max(cap, total);
+          let acc = 0;
+          const segs = st.notes.map((v, i) => { const over = acc + v > cap; acc += v; return `<div class="bseg${over ? ' over' : ''}" data-i="${i}" style="flex:${v} 1 0">${noteSVG(v)}${val(v, 8, '')}</div>`; }).join('');
+          const empty = total < cap ? `<div class="bseg empty" style="flex:${cap - total} 1 0"></div>` : '';
+          $('.barbox', el).innerHTML = `<div class="bar"><div class="bsegs">${segs}${empty}</div>${total > cap ? `<i class="bend" style="left:${(cap / span) * 100}%"></i>` : ''}</div>`;
+          $$('[data-m]', el).forEach((b) => b.setAttribute('aria-pressed', b.dataset.m === st.m ? 'true' : 'false'));
+          const md = +st.m.split('/')[1], mn = +st.m.split('/')[0];
+          $('.bsum', el).innerHTML = st.notes.length ? `${st.notes.map((v) => val(v, 8)).join(' + ')} = <b>${val(total, 8)}</b>` : 'Pridaj noty tlačidlami dole.';
+          const fb = $('.bst', el);
+          if (total === cap) { fb.className = 'fb bst ok'; fb.innerHTML = `Takt je plný! Spolu presne ${F(mn, md, 'inline')}.`; }
+          else if (total < cap) { fb.className = 'fb bst'; fb.innerHTML = `Do plného taktu ${F(mn, md, 'inline')} chýba ešte ${val(cap - total, 8)}.`; }
+          else { fb.className = 'fb bst bad'; fb.innerHTML = `Priveľa! Takt ${F(mn, md, 'inline')} je prekročený o ${val(total - cap, 8)}.`; }
+        }
+        el.addEventListener('click', (e) => {
+          const t = e.target.closest('[data-m],[data-v],[data-c]'); if (!t) return;
+          if (t.dataset.m) { st.m = t.dataset.m; }
+          if (t.dataset.v) { const total = st.notes.reduce((a, b) => a + b, 0); if (total + +t.dataset.v <= 16) st.notes.push(+t.dataset.v); }
+          if (t.dataset.c === 'undo') st.notes.pop();
+          if (t.dataset.c === 'clear') st.notes = [];
+          if (t.dataset.c === 'play') {
+            if (stopAudio) stopAudio();
+            stopAudio = playNotes(st.notes, (i) => $$('.bseg', el).forEach((s) => s.classList.toggle('playing', +s.dataset.i === i)));
+            return;
+          }
+          render();
+        });
+        cleanups.push(() => { if (stopAudio) stopAudio(); });
+        render();
+      }
+    },
+    why: {
+      title: 'Prečo 1/2 + 1/4 + 1/8 = 7/8?',
+      steps: [
+        { title: 'Takt rozdelíme na osminy.', text: 'Do taktu 4/4 sa zmestí 8 osminových nôt. Každý dielik je 1/8 taktu.', stage: () => cellBar([{ len: 8 }]) + `<div class="eqn">1 = ${F(8, 8)}</div>` },
+        { title: 'Polová nota zaberie 4 dieliky.', text: 'Polovica taktu sú štyri osminy: 1/2 = 4/8.', stage: () => cellBar([{ len: 4, v: 4 }, { len: 4 }]) + `<div class="eqn">${F(1, 2)} = ${F(4, 8)}</div>` },
+        { title: 'Štvrťová nota zaberie 2 dieliky.', text: 'Štvrtina taktu sú dve osminy: 1/4 = 2/8.', stage: () => cellBar([{ len: 4, v: 4 }, { len: 2, v: 2 }, { len: 2 }]) + `<div class="eqn">${F(1, 4)} = ${F(2, 8)}</div>` },
+        { title: 'Osminová nota zaberie 1 dielik.', text: 'Teraz sú všetky noty zapísané v osminách, teda so <b>spoločným menovateľom</b> 8.', stage: () => cellBar([{ len: 4, v: 4 }, { len: 2, v: 2 }, { len: 1, v: 1 }, { len: 1 }]) + `<div class="eqn">${F(4, 8)} + ${F(2, 8)} + ${F(1, 8)}</div>` },
+        { title: 'Spočítame dieliky.', text: '4 + 2 + 1 = 7 dielikov, teda 7/8. Do plného taktu chýba ešte 1/8, jedna osminová nota.', stage: () => cellBar([{ len: 4, v: 4 }, { len: 2, v: 2 }, { len: 1, v: 1 }, { len: 1 }]) + `<div class="eqn">${F(1, 2)} + ${F(1, 4)} + ${F(1, 8)} = ${F(7, 8)}</div>` }
+      ],
+      rule: `<p>Zlomky s rôznymi menovateľmi rozšírime na spoločný menovateľ. Potom sčítame (alebo odčítame) čitateľov a menovateľa ponecháme.</p><div class="ex">${F(3, 4)} − ${F(1, 6)} = ${F(9, 12)} − ${F(2, 12)} = ${F(7, 12)}</div>`,
+      tip: `<p>Bodka za notou ju predĺži o polovicu jej dĺžky. Bodkovaná polová nota teda trvá ${F(1, 2, 'inline')} + ${F(1, 4, 'inline')} = ${F(3, 4, 'inline')}, presne jeden takt valčíka.</p>`
+    },
+    tasks: [
+      { lvl: 1, kind: 'choice', q: 'Koľko osminových nôt trvá rovnako dlho ako jedna polová nota?', opts: ['2', '4', '8'], a: 1, sol: '1/2 = 4/8, teda štyri osminové noty.' },
+      { lvl: 1, kind: 'choice', q: `V takte ${F(3, 4, 'inline')} je už polová nota. Ktorá nota ho presne doplní?`, opts: ['polová', 'štvrťová', 'osminová'], a: 1, sol: '3/4 − 1/2 = 3/4 − 2/4 = 1/4. Chýba štvrťová nota.' },
+      { lvl: 2, kind: 'input', q: `${F(1, 4, 'inline')} + ${F(1, 8, 'inline')} + ${F(1, 8, 'inline')} + ${F(1, 2, 'inline')} = ?`, ans: '1', sol: '2/8 + 1/8 + 1/8 + 4/8 = 8/8 = 1.' },
+      { lvl: 2, kind: 'input', q: `V takte ${F(4, 4, 'inline')} je bodkovaná polová nota. Aká časť taktu ešte zostáva voľná?`, ans: '1/4', hint: 'Bodkovaná polová nota trvá 1/2 + 1/4.', sol: 'Bodkovaná polová nota trvá 1/2 + 1/4 = 3/4. Zostáva 1 − 3/4 = 1/4.' },
+      { lvl: 3, kind: 'input', q: `Šestnástinová nota trvá ${F(1, 16, 'inline')}. Koľko šestnástinových nôt sa zmestí do jedného taktu ${F(6, 8, 'inline')}?`, ans: '12', ph: 'počet nôt', hint: 'Rozšír 6/8 na zlomok s menovateľom 16.', sol: '6/8 = 12/16, teda 12 šestnástinových nôt.' },
+      { lvl: 3, kind: 'input', q: `Bodkovaná štvrťová nota a ešte jedna nota spolu presne vyplnia takt ${F(2, 4, 'inline')}. Akú dĺžku má tá druhá nota?`, ans: '1/8', hint: 'Bodkovaná štvrťová nota trvá 1/4 + 1/8.', sol: 'Bodkovaná štvrťová trvá 1/4 + 1/8 = 3/8. Takt 2/4 = 4/8. Zostáva 4/8 − 3/8 = 1/8, teda osminová nota.' },
+      { lvl: 3, kind: 'input', q: `Dvakrát bodkovaná nota sa predĺži o polovicu a ešte o štvrtinu svojej dĺžky. Koľko trvá dvakrát bodkovaná polová nota?`, ans: '7/8', hint: 'Polová nota je 1/2. Prvá bodka pridá polovicu z 1/2, druhá bodka polovicu z toho, čo pridala prvá.', sol: '1/2 + 1/4 + 1/8 = 4/8 + 2/8 + 1/8 = 7/8 taktu 4/4.' }
+    ],
+    explore_q: { q: 'Skladateľ chce takt 5/8 vyplniť len štvrťovými a osminovými notami. Koľkými rôznymi spôsobmi to ide, ak záleží na poradí nôt? A čo takt 6/8 alebo 7/8?', a: 'Pre 5/8 je to 8 spôsobov, pre 6/8 13 a pre 7/8 21. Počet spôsobov pre n osmín je súčet počtov pre n − 1 (začneme osminou) a n − 2 (začneme štvrťovou). Vznikajú tak Fibonacciho čísla 1, 2, 3, 5, 8, 13, 21, …' }
+  });
+
+  /* ---------- 4. Turistický chodník ---------- */
+  B.push({
+    id: 'chodnik', name: 'Turistický chodník', color: '--b-trail', short: 'Číselná os a porovnávanie',
+    skvp: 'ŠkVP, sekunda: znázornenie zlomkov na číselnej osi, porovnávanie zlomkov',
+    scene: () => `
+      <div class="stack">
+        <h2>Prešli sme tri štvrtiny cesty</h2>
+        <p class="lead">Turistický chodník vedie od chaty až na vrchol. Ak celú trasu označíme ako 1, každé miesto na chodníku je nejaký zlomok. V polovici cesty sme na ${F(1, 2, 'inline')}, kúsok pod vrcholom na ${F(7, 8, 'inline')}.</p>
+        <p class="lead">Presne takto vyzerá <b>číselná os</b>. Zlomky na nej majú svoje miesto, rovnako ako celé čísla.</p>
+      </div>
+      <div class="nlwrap">${nlSVG({ den: 4, max: 2, decor: true, marks: [{ v: 3 / 4, label: '3/4' }] })}</div>
+      ${chips(['palivomer v aute: ' + F(3, 4, 'inline') + ' nádrže', 'batéria mobilu na ' + F(1, 4, 'inline'), 'pravítko v palcoch je delené na osminy', 'polčas zápasu: ' + F(1, 2, 'inline') + ' hracieho času'])}`,
+    explore: {
+      title: 'Postav turistu na číselnú os', lead: 'Vyber, na koľko dielov je rozdelený úsek medzi celými číslami. Potom klikni na os alebo použi tlačidlá.',
+      mount(el) {
+        el.innerHTML = `<div class="stack">${stepperHTML('dv', 'Dielov medzi celými číslami')}
+          <div class="nlwrap nlbox"></div>
+          <div class="controls"><button class="btn small" type="button" data-c="l">← Krok späť</button><button class="btn small" type="button" data-c="r">Krok vpred →</button></div>
+          <div class="readout"><span class="frac big hf"></span><p class="say hs"></p></div>
+          <div class="task"><h3>Úloha</h3><div class="task-row"><p class="say tt"></p><button class="btn primary small" type="button" data-c="check">Skontroluj</button><button class="btn small" type="button" data-c="new">Nová úloha</button></div><p class="fb" hidden></p></div></div>`;
+        const st = { den: 4, k: 3 }, fb = $('.fb', el);
+        const TG = [[5, 4], [2, 3], [7, 6], [3, 2], [5, 8], [9, 5], [11, 6], [4, 3], [13, 10]];
+        let tg = TG[0];
+        function render() {
+          const { den, k } = st;
+          $('.nlbox', el).innerHTML = nlSVG({ den, max: 2, decor: true, marks: [{ v: k / den, label: `${k}/${den}` }] });
+          $('.nl', el).classList.add('click');
+          $('.dv', el).textContent = den;
+          $('[data-st="dv-"]', el).disabled = den <= 1; $('[data-st="dv+"]', el).disabled = den >= 12;
+          $('.hf', el).innerHTML = `<span class="top">${k}</span><span>${den}</span>`;
+          let say;
+          if (k === 0) say = 'Turista stojí pri chate.';
+          else if (k === den) say = `Turista je na vrchole: ${F(den, den, 'inline')} = 1.`;
+          else if (k === 2 * den) say = `Turista je na druhom vrchole: ${F(k, den, 'inline')} = 2.`;
+          else if (k < den) say = `Turista prešiel ${F(k, den, 'inline')} cesty na prvý vrchol.` + (gcd(k, den) > 1 ? ` V základnom tvare ${val(k, den)}.` : '');
+          else say = `Turista je za prvým vrcholom: ${F(k, den, 'inline')} = ${val(k, den)}.`;
+          $('.hs', el).innerHTML = say;
+          $('.tt', el).innerHTML = `Postav turistu na ${F(tg[0], tg[1], 'inline')}.`;
+        }
+        el.addEventListener('click', (e) => {
+          const svg = e.target.closest('.nl');
+          if (svg) {
+            const pt = svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY;
+            const p = pt.matrixTransform(svg.getScreenCTM().inverse());
+            st.k = Math.max(0, Math.min(2 * st.den, Math.round(((p.x - 40) / 310) * st.den)));
+            fb.hidden = true; render(); return;
+          }
+          const t = e.target.closest('[data-st],[data-c]'); if (!t) return;
+          if (t.dataset.st) { const old = st.den; st.den = Math.max(1, Math.min(12, st.den + (t.dataset.st.endsWith('+') ? 1 : -1))); st.k = Math.min(2 * st.den, Math.round((st.k / old) * st.den)); }
+          if (t.dataset.c === 'l') st.k = Math.max(0, st.k - 1);
+          if (t.dataset.c === 'r') st.k = Math.min(2 * st.den, st.k + 1);
+          if (t.dataset.c === 'new') { let n; do { n = TG[Math.floor(Math.random() * TG.length)]; } while (n === tg); tg = n; }
+          if (t.dataset.c === 'check') {
+            const [tn, td] = tg, { den, k } = st;
+            let ok = false, msg;
+            if (k * td === tn * den) { ok = true; msg = den === td ? 'Presne tak!' : `Správne! ${F(k, den, 'inline')} = ${F(tn, td, 'inline')}.`; }
+            else if ((tn * den) % td !== 0) msg = `Pri delení na ${den} dielov sa na ${F(tn, td, 'inline')} nedostaneš. Zmeň počet dielov, napríklad na ${td}.`;
+            else msg = `Ešte nie. Turista stojí na ${F(k, den, 'inline')}.`;
+            fb.className = 'fb ' + (ok ? 'ok' : 'bad'); fb.innerHTML = msg; fb.hidden = false; return;
+          }
+          fb.hidden = true; render();
+        });
+        render();
+      }
+    },
+    why: {
+      title: 'Ktoré je väčšie: 2/3 alebo 3/4?',
+      steps: [
+        { title: 'Kde leží 2/3?', text: 'Úsek od 0 po 1 rozdelíme na 3 rovnaké diely. Zlomok 2/3 leží na druhej čiarke.', stage: () => nlSVG({ den: 3, max: 1, compact: true, marks: [{ v: 2 / 3, label: '2/3', cls: 'b' }] }) },
+        { title: 'A kde leží 3/4?', text: 'Na druhej osi rozdelíme úsek na 4 diely. 3/4 leží na tretej čiarke. Zdá sa, že je trochu viac vpravo.', stage: () => nlSVG({ den: 3, max: 1, compact: true, marks: [{ v: 2 / 3, label: '2/3', cls: 'b' }] }) + nlSVG({ den: 4, max: 1, compact: true, marks: [{ v: 3 / 4, label: '3/4' }] }) },
+        { title: 'Spoločné delenie: dvanástiny', text: 'Na osi rozdelenej na 12 dielov nájdeme oba zlomky: 2/3 = 8/12 a 3/4 = 9/12.', stage: () => nlSVG({ den: 3, max: 1, compact: true, marks: [{ v: 2 / 3, label: '2/3', cls: 'b' }] }) + nlSVG({ den: 4, max: 1, compact: true, marks: [{ v: 3 / 4, label: '3/4' }] }) + nlSVG({ den: 12, max: 1, compact: true, marks: [{ v: 8 / 12, label: '8/12', cls: 'b' }, { v: 9 / 12, label: '9/12' }] }) },
+        { title: '3/4 je väčšie', text: '9/12 leží vpravo od 8/12. Preto 3/4 &gt; 2/3. Na číselnej osi je väčšie vždy to číslo, ktoré leží viac vpravo.', stage: () => nlSVG({ den: 12, max: 1, compact: true, marks: [{ v: 8 / 12, label: '2/3', cls: 'b' }, { v: 9 / 12, label: '3/4' }] }) + `<div class="eqn">${F(2, 3)} = ${F(8, 12)} &lt; ${F(9, 12)} = ${F(3, 4)}</div>` }
+      ],
+      rule: `<p>Zlomky s rôznymi menovateľmi porovnáme tak, že ich rozšírime na spoločný menovateľ. Väčší je ten, ktorý má potom väčšieho čitateľa. Rýchly trik: ${F('a', 'b', 'inline')} &lt; ${F('c', 'd', 'inline')} práve vtedy, keď a · d &lt; b · c.</p><div class="ex">${F(2, 3)} ? ${F(3, 4)} → 2 · 4 = 8 &lt; 9 = 3 · 3</div>`,
+      tip: `<p>Medzi každými dvoma rôznymi zlomkami leží ďalší zlomok. Napríklad medzi ${F(1, 3, 'inline')} a ${F(1, 2, 'inline')} leží ${F(5, 12, 'inline')}. A medzi ${F(1, 3, 'inline')} a ${F(5, 12, 'inline')} zase ďalší. Zlomkov na osi je nekonečne veľa, aj keď medzi 0 a 1 nie je ani jedno celé číslo.</p>`
+    },
+    tasks: [
+      { lvl: 1, kind: 'choice', q: 'Ktoré číslo leží na číselnej osi najbližšie k 1?', opts: [F(1, 2), F(2, 3), F(7, 8)], a: 2, sol: '7/8 chýba do 1 len 1/8. Zlomku 2/3 chýba 1/3 a zlomku 1/2 chýba 1/2.' },
+      { lvl: 1, kind: 'input', q: `Trasa má 12 km. Prešli sme ${F(5, 6, 'inline')} trasy. Koľko kilometrov nám ešte zostáva?`, ans: '2', ph: 'počet km', hint: 'Koľko km je 1/6 trasy?', sol: '1/6 z 12 km sú 2 km. Zostáva nám práve 1/6 trasy, teda 2 km.' },
+      { lvl: 2, kind: 'choice', q: 'Ktoré poradie je správne, od najmenšieho čísla po najväčšie?', opts: [`${F(1, 2)} &lt; ${F(3, 5)} &lt; ${F(2, 3)}`, `${F(3, 5)} &lt; ${F(1, 2)} &lt; ${F(2, 3)}`, `${F(2, 3)} &lt; ${F(3, 5)} &lt; ${F(1, 2)}`], a: 0, sol: 'Spoločný menovateľ je 30: 1/2 = 15/30, 3/5 = 18/30, 2/3 = 20/30.' },
+      { lvl: 2, kind: 'input', q: `Ktorý zlomok leží na číselnej osi presne v strede medzi ${F(1, 3, 'inline')} a ${F(1, 2, 'inline')}?`, ans: '5/12', hint: 'Rozšír oba zlomky na dvanástiny.', sol: '1/3 = 4/12 a 1/2 = 6/12. V strede je 5/12.' },
+      { lvl: 3, kind: 'input', q: `Keď sme prešli ${F(3, 5, 'inline')} trasy, mali sme za sebou o 4 km viac, ako nám zostávalo. Koľko kilometrov má celá trasa?`, ans: '20', ph: 'počet km', hint: 'Pred nami sú 2/5 trasy. O akú časť trasy je za nami viac?', sol: 'Za nami sú 3/5, pred nami 2/5. Rozdiel je 1/5 trasy a to sú 4 km. Celá trasa má 5 · 4 = 20 km.' },
+      { lvl: 3, kind: 'input', mode: 'exact', q: `Napíš zlomok s menovateľom 20, ktorý leží na osi medzi ${F(2, 5, 'inline')} a ${F(1, 2, 'inline')}.`, ans: '9/20', hint: 'Rozšír 2/5 aj 1/2 na dvadsatiny.', sol: '2/5 = 8/20 a 1/2 = 10/20. Medzi nimi je jediný taký zlomok: 9/20.' },
+      { lvl: 3, kind: 'choice', q: `Ktoré z čísel ${F(5, 11, 'inline')}, ${F(6, 13, 'inline')}, ${F(7, 15, 'inline')} je najväčšie?`, opts: [F(5, 11), F(6, 13), F(7, 15)], a: 2, hint: 'Porovnaj, koľko chýba každému z nich do 1/2.', sol: 'Do 1/2 chýba zlomku 5/11 presne 1/22, zlomku 6/13 chýba 1/26 a zlomku 7/15 chýba 1/30. Najmenej chýba 7/15, preto je najväčší.' }
+    ],
+    explore_q: { q: 'Vieš vymyslieť postup, ako medzi akékoľvek dva rôzne zlomky vložiť ďalší zlomok? Funguje vždy?', a: 'Jeden spôsob: vezmi ich priemer, teda (a + b) : 2. Druhý, prekvapivý spôsob: sčítaj zvlášť čitateľov a zvlášť menovateľov. Medzi 1/3 a 1/2 tak dostaneš 2/5. Tento „zlý súčet“ (mediant) leží vždy medzi pôvodnými zlomkami. Skús zistiť prečo!' }
+  });
+
+  /* ---------- 5. Pizzeria ---------- */
+  function pizzasHTML(k, n) {
+    const count = Math.max(1, Math.ceil(k / n));
+    let s = '';
+    for (let p = 0; p < count; p++) { const f = Math.max(0, Math.min(n, k - p * n)); s += cakeSVG({ n, on: range(f), pep: true }, 'cake sm pizza'); }
+    return `<div class="center">${s}</div>`;
+  }
+  B.push({
+    id: 'pizzeria', name: 'Pizzeria', color: '--b-pizza', short: 'Zmiešané čísla, nepravé zlomky',
+    skvp: 'ŠkVP, sekunda: zmiešané číslo, prepis čísel do tvaru zlomku a naopak',
+    scene: () => `
+      <div class="two">
+        <div class="stack">
+          <h2>Zostalo 11 kúskov</h2>
+          <p class="lead">Po oslave zostalo na stole 11 kúskov pizze. Každá pizza bola rozkrojená na 4 kúsky, takže každý kúsok je ${F(1, 4, 'inline')} pizze.</p>
+          <p class="lead">Spolu je to ${F(11, 4, 'inline')} pizze. Zo štyroch kúskov sa dá poskladať celá pizza, takže máme 2 celé pizze a ešte 3 kúsky: ${M(2, 3, 4)} pizze. Takému zápisu hovoríme <b>zmiešané číslo</b>.</p>
+        </div>
+        <div class="stack">${pizzasHTML(11, 4)}<div class="center eqn">${F(11, 4)} = ${M(2, 3, 4)}</div></div>
+      </div>
+      ${chips([M(1, 1, 2) + ' litra coly', 'film trvá ' + M(2, 1, 4) + ' hodiny', 'recept: ' + M(1, 1, 2) + ' hrnčeka múky', M(2, 1, 2) + ' kg zemiakov'])}`,
+    explore: {
+      title: 'Poskladaj celé pizze', lead: 'Nastav, na koľko kúskov sa krája jedna pizza a koľko kúskov máš. Uvidíš nepravý zlomok aj zmiešané číslo.',
+      mount(el) {
+        el.innerHTML = `<div class="stack"><div class="controls" style="gap:20px">${stepperHTML('nv', 'Kúskov na pizzu')}${stepperHTML('kv', 'Počet kúskov')}</div>
+          <div class="pz"></div><div class="readout center"><div class="eqn pe"></div></div><p class="say ps" style="text-align:center"></p></div>`;
+        const st = { n: 4, k: 11 };
+        function render() {
+          const { n, k } = st, w = Math.floor(k / n), r = k % n;
+          $('.pz', el).innerHTML = pizzasHTML(k, n);
+          $('.nv', el).textContent = n; $('.kv', el).textContent = k;
+          $('[data-st="nv-"]', el).disabled = n <= 2; $('[data-st="nv+"]', el).disabled = n >= 8;
+          $('[data-st="kv-"]', el).disabled = k <= 0; $('[data-st="kv+"]', el).disabled = k >= 30;
+          $('.pe', el).innerHTML = `${F(k, n)} = ${r === 0 ? `<span>${w}</span>` : w === 0 ? F(r, n) : M(w, r, n)}`;
+          let s;
+          if (k === 0) s = 'Zatiaľ tu nie je žiadny kúsok.';
+          else if (w === 0) s = `Na celú pizzu to zatiaľ nestačí. Máme ${F(k, n, 'inline')} pizze.`;
+          else s = `${k} : ${n} = ${w}, zvyšok ${r}. Celé pizze: ${w}, zvyšné kúsky: ${r}.`;
+          $('.ps', el).innerHTML = s;
+        }
+        el.addEventListener('click', (e) => {
+          const t = e.target.closest('[data-st]'); if (!t) return;
+          const up = t.dataset.st.endsWith('+');
+          if (t.dataset.st.startsWith('nv')) st.n = Math.max(2, Math.min(8, st.n + (up ? 1 : -1)));
+          else st.k = Math.max(0, Math.min(30, st.k + (up ? 1 : -1)));
+          render();
+        });
+        render();
+      }
+    },
+    why: {
+      title: 'Ako z 11/4 urobiť zmiešané číslo?',
+      steps: [
+        { title: '11 kúskov po štvrtine', text: 'Máme 11 kúskov. Každý je 1/4 pizze, spolu 11/4 pizze.', stage: () => `<div class="center">${Array.from({ length: 11 }, wedge).join('')}</div><div class="eqn">${F(11, 4)}</div>` },
+        { title: 'Zo štyroch kúskov je celá pizza.', text: '4 štvrtiny sú 1 celá pizza. Zostalo ešte 7 kúskov.', stage: () => `<div class="center">${cakeSVG({ n: 4, on: range(4), pep: true }, 'cake sm pizza')}${Array.from({ length: 7 }, wedge).join('')}</div><div class="eqn">1 + ${F(7, 4)}</div>` },
+        { title: 'Z ďalších štyroch zase celá.', text: 'Máme 2 celé pizze a 3 kúsky. Celú pizzu z nich už neposkladáme.', stage: () => `<div class="center">${cakeSVG({ n: 4, on: range(4), pep: true }, 'cake sm pizza')}${cakeSVG({ n: 4, on: range(4), pep: true }, 'cake sm pizza')}${Array.from({ length: 3 }, wedge).join('')}</div><div class="eqn">2 + ${F(3, 4)}</div>` },
+        { title: '2 celé a 3 štvrtiny', text: '11/4 = 2 3/4. Vlastne sme delili so zvyškom: 11 : 4 = 2, zvyšok 3.', stage: () => `${pizzasHTML(11, 4)}<div class="eqn">${F(11, 4)} = ${M(2, 3, 4)}</div>` },
+        { title: 'A naspäť?', text: 'Celé pizze rozkrojíme naspäť na štvrtiny (2 · 4 = 8 kúskov) a pridáme 3 zvyšné kúsky.', stage: () => `${pizzasHTML(11, 4)}<div class="eqn">${M(2, 3, 4)} = ${F('2 · 4 + 3', 4)} = ${F(11, 4)}</div>` }
+      ],
+      rule: `<p>Zlomok, ktorý má čitateľa väčšieho ako menovateľa, je <b>nepravý zlomok</b>. Na zmiešané číslo ho prevedieme delením so zvyškom: podiel sú celé, zvyšok je nový čitateľ.</p><div class="ex">${F(23, 5)} = ${M(4, 3, 5)}, lebo 23 : 5 = 4 (zv. 3)</div>`,
+      tip: `<p>Pri sčítaní zmiešaných čísel môžeš sčítať zvlášť celé a zvlášť zlomky: ${M(1, 3, 4)} + ${M(2, 1, 2)} = 3 + ${F(3, 4, 'inline')} + ${F(2, 4, 'inline')} = 3 + ${F(5, 4, 'inline')} = ${M(4, 1, 4)}. Pozor, keď zlomky dajú spolu viac ako 1!</p>`
+    },
+    tasks: [
+      { lvl: 1, kind: 'input', mode: 'mixed', q: `Prepíš ${F(7, 2, 'inline')} na zmiešané číslo.`, ans: '3 1/2', ph: 'napr. 2 1/3', sol: '7 : 2 = 3, zvyšok 1. 7/2 = 3 1/2.' },
+      { lvl: 1, kind: 'input', q: `Koľko štvrtín je ${M(2, 1, 4)}?`, ans: '9', ph: 'počet štvrtín', sol: '2 celé sú 8 štvrtín, k tomu 1 štvrtina: 9.' },
+      { lvl: 2, kind: 'input', q: `Na oslave zjedli ${M(1, 3, 4)} šunkovej pizze a ${M(2, 1, 2)} syrovej pizze. Koľko pizze zjedli spolu?`, ans: '4 1/4', ph: 'napr. 2 1/3', hint: 'Sčítaj zvlášť celé a zvlášť zlomky. Pozor, 3/4 + 2/4 je viac ako 1.', sol: '1 + 2 = 3 a 3/4 + 1/2 = 3/4 + 2/4 = 5/4 = 1 1/4. Spolu 4 1/4.' },
+      { lvl: 2, kind: 'input', q: `Na oslavu priniesli štyri pizze. Zjedli ${M(2, 5, 8)} pizze. Koľko pizze zostalo?`, ans: '1 3/8', ph: 'napr. 2 1/3', hint: 'Jednu celú pizzu si rozkroj na osminy: 4 = 3 8/8.', sol: '4 = 3 8/8. 3 8/8 − 2 5/8 = 1 3/8.' },
+      { lvl: 3, kind: 'input', q: `Každý zo 6 kamarátov zje ${F(3, 8, 'inline')} pizze. V pizzerii predávajú len celé pizze. Koľko pízz musia objednať?`, ans: '3', ph: 'počet pízz', hint: 'Koľko pizze zjedia spolu?', sol: '6 · 3/8 = 18/8 = 2 1/4 pizze. Dve pizze nestačia, musia objednať 3.' },
+      { lvl: 3, kind: 'input', q: `Pizzu rozkrojili na 8 rovnakých kúskov. Ema zjedla o kúsok viac ako Tomáš a Tomáš o kúsok viac ako Lea. Spolu zjedli ${F(3, 4, 'inline')} pizze. Akú časť pizze zjedla Ema?`, ans: '3/8', hint: 'Koľko kúskov je 3/4 pizze?', sol: '3/4 = 6/8, spolu zjedli 6 kúskov. Lea 1, Tomáš 2, Ema 3 kúsky. Ema zjedla 3/8 pizze.' },
+      { lvl: 3, kind: 'input', mode: 'mixed', q: `Vypočítaj ${M(3, 1, 3)} − ${M(1, 3, 4)} a výsledok napíš ako zmiešané číslo.`, ans: '1 7/12', ph: 'napr. 2 1/3', hint: 'Spoločný menovateľ je 12. Keď sa zlomky nedajú odčítať, požičaj si jeden celok.', sol: '3 4/12 − 1 9/12. Z 3 4/12 si požičiame celok: 2 16/12 − 1 9/12 = 1 7/12.' }
+    ],
+    explore_q: { q: 'Z číslic 1, 2 a 3 (každú použi práve raz) poskladaj zmiešané číslo. Ktoré sa dajú vytvoriť a ktoré je najväčšie? A čo keby si mal číslice 1, 2, 3 a 4?', a: 'S 1, 2, 3 sú to 1 2/3, 2 1/3 a 3 1/2, lebo zlomková časť musí byť menšia ako 1. Najväčšie je 3 1/2. So štyrmi číslicami je najväčšie 43 1/2: najviac sa oplatí veľká celá časť, a tá môže byť aj dvojciferná.' }
+  });
+
+  /* ---------- 6. Záhradníctvo ---------- */
+  B.push({
+    id: 'zahrada', name: 'Záhradníctvo', color: '--b-garden', short: 'Násobenie zlomkov',
+    skvp: 'ŠkVP, sekunda: násobenie racionálnych čísel, vlastnosti operácií',
+    scene: () => `
+      <div class="two">
+        <div class="stack">
+          <h2>Polovica záhrady, z nej tri štvrtiny</h2>
+          <p class="lead">Babka pestuje zeleninu na polovici záhrady. Z tejto polovice sú ${F(3, 4, 'inline')} mrkva. Aká časť celej záhrady je mrkva?</p>
+          <p class="lead">Na obrázku má záhrada 8 rovnakých záhonov a mrkva rastie na 3 z nich. Mrkva je ${F(3, 8, 'inline')} záhrady. Zapisujeme to ako násobenie: ${F(3, 4, 'inline')} · ${F(1, 2, 'inline')} = ${F(3, 8, 'inline')}.</p>
+        </div>
+        <div class="stack">${gardenSVG(1, 2, 3, 4)}${gardenLegend}</div>
+      </div>
+      ${chips([F(3, 4, 'inline') + ' kg jabĺk po 2 € za kilogram', F(1, 3, 'inline') + ' triedy sú dievčatá, z nich polovica nosí okuliare', 'recept na polovicu porcie', 'zľava ' + F(1, 4, 'inline') + ' z ceny'])}`,
+    explore: {
+      title: 'Rozdeľ záhradu', lead: 'Najprv urči, akú časť záhrady zaberá zelenina. Potom, akú časť zeleniny tvorí mrkva. Obrázok ukáže, akú časť celej záhrady zaberá mrkva.',
+      mount(el) {
+        el.innerHTML = `<div class="two"><div class="stack">
+          <h3>Zelenina zaberá <span class="zf"></span> záhrady</h3><div class="controls" style="gap:16px">${stepperHTML('av', 'čitateľ')}${stepperHTML('bv', 'menovateľ')}</div>
+          <h3>Mrkva zaberá <span class="mf"></span> zeleniny</h3><div class="controls" style="gap:16px">${stepperHTML('cv', 'čitateľ')}${stepperHTML('dv', 'menovateľ')}</div>
+          <div class="eqn ge"></div><p class="words gw"></p></div><div class="stack"><div class="gbox"></div>${gardenLegend}</div></div>`;
+        const st = { a: 1, b: 2, c: 3, d: 4 };
+        function render() {
+          const { a, b, c, d } = st;
+          $('.gbox', el).innerHTML = gardenSVG(a, b, c, d);
+          ['a', 'b', 'c', 'd'].forEach((x) => { $(`.${x}v`, el).textContent = st[x]; });
+          $('[data-st="av-"]', el).disabled = a <= 1; $('[data-st="av+"]', el).disabled = a >= b;
+          $('[data-st="bv-"]', el).disabled = b <= 1; $('[data-st="bv+"]', el).disabled = b >= 6;
+          $('[data-st="cv-"]', el).disabled = c <= 0; $('[data-st="cv+"]', el).disabled = c >= d;
+          $('[data-st="dv-"]', el).disabled = d <= 1; $('[data-st="dv+"]', el).disabled = d >= 6;
+          $('.zf', el).innerHTML = F(a, b, 'inline'); $('.mf', el).innerHTML = F(c, d, 'inline');
+          const p = a * c, q = b * d;
+          $('.ge', el).innerHTML = `${F(c, d)} · ${F(a, b)} = ${F(`${c} · ${a}`, `${d} · ${b}`)} = ${F(p, q)}` + (gcd(p, q) > 1 && p > 0 ? ` = ${val(p, q, '')}` : '');
+          $('.gw', el).textContent = `Záhrada má ${q} ${plural(q, 'záhon', 'rovnaké záhony', 'rovnakých záhonov')}, mrkva rastie na ${p} z nich.`;
+        }
+        el.addEventListener('click', (e) => {
+          const t = e.target.closest('[data-st]'); if (!t) return;
+          const k = t.dataset.st[0], up = t.dataset.st.endsWith('+');
+          st[k] += up ? 1 : -1;
+          st.b = Math.max(1, Math.min(6, st.b)); st.d = Math.max(1, Math.min(6, st.d));
+          st.a = Math.max(1, Math.min(st.b, st.a)); st.c = Math.max(0, Math.min(st.d, st.c));
+          render();
+        });
+        render();
+      }
+    },
+    why: {
+      title: 'Prečo 3/4 · 2/3 = 1/2?',
+      steps: [
+        { title: 'Toto je celá záhrada.', text: 'Celú záhradu berieme ako 1.', stage: () => gardenSVG(1, 1, 0, 1) },
+        { title: 'Zvislo ju rozdelíme na 3 časti.', text: 'Na 2 z nich bude zelenina. Zelenina zaberá 2/3 záhrady.', stage: () => gardenSVG(2, 3, 0, 1) + `<div class="eqn">${F(2, 3)}</div>` },
+        { title: 'Vodorovne ju rozdelíme na 4 časti.', text: 'V každom páse zeleniny zaberie mrkva 3 zo 4 dielov. Mrkva je 3/4 zeleniny.', stage: () => gardenSVG(2, 3, 3, 4) + `<div class="eqn">${F(3, 4)} z ${F(2, 3)}</div>` },
+        { title: 'Spočítame záhony.', text: 'Záhrada má teraz 3 · 4 = 12 rovnakých záhonov. Mrkva rastie na 2 · 3 = 6 z nich. Mrkva je 6/12 záhrady.', stage: () => gardenSVG(2, 3, 3, 4) + `<div class="eqn">${F('3 · 2', '4 · 3')} = ${F(6, 12)}</div>` },
+        { title: 'Takto sa násobia zlomky.', text: 'Čitateľ krát čitateľ (počet záhonov s mrkvou), menovateľ krát menovateľ (počet všetkých záhonov). Potom krátime.', stage: () => gardenSVG(2, 3, 3, 4) + `<div class="eqn">${F(3, 4)} · ${F(2, 3)} = ${F(6, 12)} = ${F(1, 2)}</div>` }
+      ],
+      rule: `<p>Zlomky násobíme tak, že vynásobíme čitateľa čitateľom a menovateľa menovateľom. Slovo „z“ v „3/4 z niečoho“ znamená to isté ako násobenie. Krátiť sa oplatí ešte pred násobením.</p><div class="ex">${F(3, 5)} · ${F(10, 9)} = ${F('3 · 10', '5 · 9')} = ${F(30, 45)} = ${F(2, 3)}</div>`,
+      tip: `<p>Keď násobíš číslom menším ako 1, výsledok vyjde menší ako pôvodné číslo. Preto „polovica zo 6“ sú 3. Násobenie teda nemusí číslo vždy zväčšiť!</p>`
+    },
+    tasks: [
+      { lvl: 1, kind: 'input', q: `Koľko je ${F(2, 3, 'inline')} z 18 jabĺk?`, ans: '12', ph: 'počet jabĺk', sol: '18 : 3 = 6, 6 · 2 = 12 jabĺk.' },
+      { lvl: 1, kind: 'input', q: `Kilogram jahôd stojí 6 €. Koľko eur zaplatíš za ${F(3, 4, 'inline')} kg?`, ans: '9/2', ph: 'napr. 4,5', sol: '6 : 4 = 1,5 € za štvrť kila. 3 · 1,5 = 4,5 €.' },
+      { lvl: 2, kind: 'input', mode: 'lowest', q: `${F(3, 5, 'inline')} · ${F(10, 9, 'inline')} = ? Výsledok napíš v základnom tvare.`, ans: '2/3', sol: '(3 · 10)/(5 · 9) = 30/45 = 2/3. Rýchlejšie je krátiť pred násobením: 3 s 9 a 10 s 5.' },
+      { lvl: 2, kind: 'input', q: `V triede je 28 žiakov. ${F(3, 4, 'inline')} z nich chodia na krúžok. Z tých, čo chodia na krúžok, je ${F(1, 3, 'inline')} na šachu. Koľko žiakov chodí na šach?`, ans: '7', ph: 'počet žiakov', sol: '3/4 z 28 = 21 žiakov. 1/3 z 21 = 7 žiakov.' },
+      { lvl: 3, kind: 'input', q: `Mama upiekla koláč. Adam zjedol ${F(1, 3, 'inline')} koláča. Bea zjedla ${F(1, 4, 'inline')} zo zvyšku. Cyril zjedol polovicu z toho, čo zostalo po Bei. Aká časť koláča zostala?`, ans: '1/4', hint: 'Postupuj krok za krokom a vždy si zapíš, koľko koláča zostalo.', sol: 'Po Adamovi zostali 2/3. Bea zjedla 1/4 z 2/3 = 1/6, zostala 1/2. Cyril zjedol polovicu z 1/2, zostala 1/4 koláča.' },
+      { lvl: 3, kind: 'input', q: `Koľko je ${F(1, 2, 'inline')} z ${F(2, 3, 'inline')} z ${F(3, 4, 'inline')} z ${F(4, 5, 'inline')} … z ${F(9, 10, 'inline')} z čísla 1 000?`, ans: '100', ph: 'číslo', hint: 'Napíš to ako jeden súčin a pozri sa, čo sa dá skrátiť.', sol: '1/2 · 2/3 · 3/4 · … · 9/10 = 1/10, lebo každý čitateľ sa skráti s menovateľom predchádzajúceho zlomku. 1/10 z 1 000 je 100.' },
+      { lvl: 3, kind: 'input', q: `Obdĺžnikovému záhonu predĺžime dĺžku o ${F(1, 4, 'inline')} a šírku skrátime o ${F(1, 5, 'inline')}. O akú časť pôvodného obsahu sa zmení obsah záhonu? (Ak sa nezmení, napíš 0.)`, ans: '0', ph: 'zlomok alebo 0', hint: 'Nová dĺžka je 5/4 pôvodnej, nová šírka 4/5 pôvodnej.', sol: 'Nový obsah = 5/4 · 4/5 = 1 násobok pôvodného. Obsah sa nezmení, aj keď sa záhon zmenil!' }
+    ],
+    explore_q: { q: 'Je súčin dvoch zlomkov menších ako 1 vždy menší ako každý z nich? Vysvetli, prečo, alebo nájdi protipríklad.', a: 'Áno, je. Ak je a aj b menšie ako 1 (a kladné), potom a · b je „b-tá časť z a“, teda menej ako celé a. Rovnako je to menej ako celé b. Na záhrade: mrkva je časť zeleniny, takže jej nemôže byť viac ako zeleniny.' }
+  });
+
+  /* ---------- 7. Limonádový stánok ---------- */
+  const CUPS = [[1, 2], [1, 3], [1, 4], [1, 5], [1, 6], [3, 4], [2, 3]];
+  B.push({
+    id: 'limonada', name: 'Limonádový stánok', color: '--b-lemon', short: 'Delenie zlomkov',
+    skvp: 'ŠkVP, sekunda: delenie racionálnych čísel, prevrátená hodnota',
+    scene: () => `
+      <div class="two">
+        <div class="stack">
+          <h2>Koľko pohárov nalejeme?</h2>
+          <p class="lead">V stánku majú džbán s ${M(1, 1, 2)} litra limonády. Jeden pohár má ${F(1, 4, 'inline')} litra. Koľko pohárov nalejú?</p>
+          <p class="lead">Z jedného litra sú 4 poháre a z pol litra 2 poháre. Spolu 6 pohárov. Zapisujeme to ako delenie: ${F(3, 2, 'inline')} : ${F(1, 4, 'inline')} = 6.</p>
+        </div>
+        ${lemonHTML(3, 2, 1, 4).html}
+      </div>
+      ${chips(['fľaša ' + F(1, 2, 'inline') + ' l na poháre po ' + F(1, 4, 'inline') + ' l', 'lano 3 m na kusy po ' + F(3, 4, 'inline') + ' m', M(1, 1, 2) + ' kg múky do vreciek po ' + F(1, 4, 'inline') + ' kg', 'koľkokrát sa ' + F(1, 3, 'inline') + ' zmestí do 2?'])}`,
+    explore: {
+      title: 'Rozlievaj limonádu', lead: 'Nastav, koľko limonády je v džbáne a aký veľký je pohár. Uvidíš, koľko pohárov nalejete.',
+      mount(el) {
+        el.innerHTML = `<div class="stack">${stepperHTML('jv', 'Limonády v džbáne (l)')}
+          <div class="controls"><b>Pohár (l)</b><div class="seg" role="group" aria-label="Veľkosť pohára">${CUPS.map(([a, b], i) => `<button type="button" data-cup="${i}">${F(a, b)}</button>`).join('')}</div></div>
+          <div class="lb"></div><div class="eqn le" style="justify-content:center"></div><p class="say lw" style="text-align:center"></p></div>`;
+        const st = { j: 3, c: 2 };
+        function render() {
+          const [cn, cd] = CUPS[st.c], r = lemonHTML(st.j, 2, cn, cd, false);
+          $('.lb', el).innerHTML = r.html;
+          $('.jv', el).innerHTML = val(st.j, 2, '');
+          $('[data-st="jv-"]', el).disabled = st.j <= 1; $('[data-st="jv+"]', el).disabled = st.j >= 6;
+          $$('[data-cup]', el).forEach((b) => b.setAttribute('aria-pressed', +b.dataset.cup === st.c ? 'true' : 'false'));
+          $('.le', el).innerHTML = `${val(st.j, 2, '')} : ${F(cn, cd)} = ${val(st.j, 2, '')} · ${F(cd, cn)} = ${val(r.num, r.den, '')}`;
+          $('.lw', el).innerHTML = `Nalejete ${r.full} ${plural(r.full, 'plný pohár', 'plné poháre', 'plných pohárov')}` + (r.rem > 0 ? `. Na posledný pohár zostane ${val(r.num - r.full * r.den, r.den)} pohára.` : '.');
+        }
+        el.addEventListener('click', (e) => {
+          const t = e.target.closest('[data-st],[data-cup]'); if (!t) return;
+          if (t.dataset.st) st.j = Math.max(1, Math.min(6, st.j + (t.dataset.st.endsWith('+') ? 1 : -1)));
+          else st.c = +t.dataset.cup;
+          render();
+        });
+        render();
+      }
+    },
+    why: {
+      title: 'Prečo delenie zlomkom znamená násobenie?',
+      steps: [
+        { title: 'Jeden liter', text: 'Z jedného litra nalejeme 4 poháre po 1/4 litra. 1 : 1/4 = 4.', stage: () => lemonHTML(2, 2, 1, 4).html + `<div class="eqn">1 : ${F(1, 4)} = 4</div>` },
+        { title: 'Tri litre', text: 'Z každého litra sú 4 poháre, z troch litrov 3 · 4 = 12 pohárov.', stage: () => lemonHTML(6, 2, 1, 4).html + `<div class="eqn">3 : ${F(1, 4)} = 3 · 4 = 12</div>` },
+        { title: 'Jeden a pol litra', text: 'Z 3/2 litra je 3/2 · 4 = 6 pohárov.', stage: () => lemonHTML(3, 2, 1, 4).html + `<div class="eqn">${F(3, 2)} : ${F(1, 4)} = ${F(3, 2)} · 4 = 6</div>` },
+        { title: 'Čo sme vlastne robili?', text: 'Delenie číslom 1/4 sme vždy nahradili násobením číslom 4. Číslo 4 = 4/1 je <b>prevrátená hodnota</b> zlomku 1/4: čitateľ a menovateľ si vymenia miesta.', stage: () => `<div class="eqn">: ${F(1, 4)} &nbsp;→&nbsp; · ${F(4, 1)}</div>` },
+        { title: 'Funguje to s každým zlomkom.', text: 'Pohár s 3/4 litra: z 3/2 litra naplníme presne 2 poháre. 3/2 : 3/4 = 3/2 · 4/3 = 2.', stage: () => lemonHTML(3, 2, 3, 4).html + `<div class="eqn">${F(3, 2)} : ${F(3, 4)} = ${F(3, 2)} · ${F(4, 3)} = 2</div>` }
+      ],
+      rule: `<p>Zlomkom delíme tak, že násobíme jeho prevrátenou hodnotou.</p><div class="ex">${F('a', 'b')} : ${F('c', 'd')} = ${F('a', 'b')} · ${F('d', 'c')}</div><p>Deliť nulou nemôžeme, lebo nula nemá prevrátenú hodnotu.</p>`,
+      tip: `<p>Keď delíš číslom menším ako 1, výsledok vyjde väčší ako pôvodné číslo. Napríklad 2 : ${F(1, 2, 'inline')} = 4, lebo polovica sa do dvoch celkov zmestí štyrikrát.</p>`
+    },
+    tasks: [
+      { lvl: 1, kind: 'input', q: `Koľko pohárov po ${F(1, 4, 'inline')} litra nalejeme z 2 litrov limonády?`, ans: '8', ph: 'počet pohárov', sol: '2 : 1/4 = 2 · 4 = 8 pohárov.' },
+      { lvl: 1, kind: 'input', q: `3 : ${F(1, 2, 'inline')} = ?`, ans: '6', sol: 'Polovica sa do 3 celkov zmestí 6-krát. 3 · 2 = 6.' },
+      { lvl: 2, kind: 'input', q: `Lano dlhé ${M(4, 1, 2)} m rozstriháme na kusy dlhé ${F(3, 4, 'inline')} m. Koľko kusov bude?`, ans: '6', ph: 'počet kusov', sol: '4 1/2 = 9/2. 9/2 : 3/4 = 9/2 · 4/3 = 36/6 = 6.' },
+      { lvl: 2, kind: 'input', q: `${F(5, 6, 'inline')} : ${F(5, 12, 'inline')} = ?`, ans: '2', sol: '5/6 · 12/5 = 60/30 = 2.' },
+      { lvl: 3, kind: 'input', q: `Plná fľaša limonády váži 1 kg. Fľaša naplnená do polovice váži ${F(3, 5, 'inline')} kg. Koľko kilogramov váži prázdna fľaša?`, ans: '1/5', ph: 'zlomok alebo desatinné číslo', hint: 'O koľko je ľahšia polovičná fľaša? Koľko teda váži polovica limonády?', sol: 'Rozdiel 1 − 3/5 = 2/5 kg je polovica limonády. Všetka limonáda váži 4/5 kg. Prázdna fľaša váži 1 − 4/5 = 1/5 kg, teda 200 g.' },
+      { lvl: 3, kind: 'input', q: `Keď neznáme číslo vydelíme ${F(2, 3, 'inline')}, dostaneme ${F(3, 4, 'inline')}. Aké je to číslo?`, ans: '1/2', sol: 'Číslo : 2/3 = 3/4, preto číslo = 3/4 · 2/3 = 6/12 = 1/2.' },
+      { lvl: 3, kind: 'input', q: `Prvý kohútik naplní sud za 3 hodiny, druhý za 6 hodín. Za koľko hodín ho naplnia, keď tečú oba naraz?`, ans: '2', ph: 'počet hodín', hint: 'Akú časť sudu naplní každý kohútik za 1 hodinu?', sol: 'Za hodinu prvý naplní 1/3 sudu a druhý 1/6. Spolu 1/3 + 1/6 = 1/2 sudu za hodinu. Celý sud teda naplnia za 1 : 1/2 = 2 hodiny.' }
+    ],
+    explore_q: { q: 'Čo sa deje s počtom pohárov, keď sú poháre stále menšie a menšie (1/10 l, 1/100 l, 1/1000 l…)? Prečo práve preto nemôžeme deliť nulou?', a: 'Pohárov je stále viac: 10, 100, 1 000-krát viac ako litrov. Keby mal pohár objem 0, nenaplnili by sme ho nikdy, a koľko by bolo pohárov? Na takú otázku neexistuje odpoveď, žiadne číslo nesedí. Preto delenie nulou nemá zmysel.' }
+  });
+
+  /* ---------- 8. Veža hlavolamov ---------- */
+  B.push({
+    id: 'hlavolamy', name: 'Veža hlavolamov', color: '--b-puzzle', short: 'Súťažné úlohy so zlomkami', tasksOnly: true,
+    skvp: 'ŠkVP, sekunda: úlohy z matematických súťaží, logická argumentácia',
+    intro: 'Najťažšie úlohy v štvrti, podobné úlohám z Pytagoriády alebo matematickej olympiády. Nepotrebuješ nič nové, len dobrý nápad. Keď sa zasekneš, pozri si nápovedu.',
+    tasks: [
+      { lvl: 3, kind: 'input', q: `V triede chodí ${F(1, 2, 'inline')} žiakov na futbal, ${F(1, 4, 'inline')} na plávanie a ${F(1, 7, 'inline')} na šach. Každý žiak chodí najviac na jeden krúžok. Zvyšní 3 žiaci nechodia na žiadny. Koľko žiakov je v triede?`, ans: '28', ph: 'počet žiakov', hint: 'Akú časť triedy tvoria tí 3 žiaci?', sol: '1/2 + 1/4 + 1/7 = 14/28 + 7/28 + 4/28 = 25/28. Zvyšné 3/28 triedy sú 3 žiaci, teda 1/28 je 1 žiak a trieda má 28 žiakov.' },
+      { lvl: 3, kind: 'input', q: `Vypočítaj ${F(1, 2, 'inline')} + ${F(1, 6, 'inline')} + ${F(1, 12, 'inline')} + ${F(1, 20, 'inline')} + ${F(1, 30, 'inline')} + … + ${F(1, 90, 'inline')}.`, ans: '9/10', hint: 'Všimni si: 1/6 = 1/2 − 1/3 a 1/12 = 1/3 − 1/4. Menovatele sú 1·2, 2·3, 3·4, …, 9·10.', sol: 'Každý zlomok je rozdiel: 1/(n·(n+1)) = 1/n − 1/(n+1). Po sčítaní sa takmer všetko odčíta a zostane 1 − 1/10 = 9/10.' },
+      { lvl: 3, kind: 'input', q: `Vypočítaj (1 + ${F(1, 2, 'inline')}) · (1 + ${F(1, 3, 'inline')}) · (1 + ${F(1, 4, 'inline')}) · … · (1 + ${F(1, 99, 'inline')}).`, ans: '50', ph: 'číslo', hint: 'Prepíš každú zátvorku na jeden zlomok.', sol: '3/2 · 4/3 · 5/4 · … · 100/99. Každý čitateľ sa skráti s menovateľom ďalšieho zlomku. Zostane 100/2 = 50.' },
+      { lvl: 3, kind: 'input', q: `Vypočítaj zložený zlomok ${F(1, `1 + ${F(1, `1 + ${F(1, 2)}`)}`, 'inline')}.`, ans: '3/5', hint: 'Počítaj odspodu nahor.', sol: '1 + 1/2 = 3/2. 1 : 3/2 = 2/3. 1 + 2/3 = 5/3. 1 : 5/3 = 3/5.' },
+      { lvl: 3, kind: 'input', q: `Starí Egypťania písali zlomky ako súčet rôznych zlomkov s čitateľom 1. Napíš ${F(7, 12, 'inline')} ako súčet dvoch takých zlomkov.`, ph: 'napr. 1/2 + 1/5', check: (raw) => {
+        const parts = raw.split('+').map((s) => parseAns(s));
+        if (parts.length !== 2 || parts.some((p) => !p || p.form !== 'frac')) return { ok: false, msg: 'Napíš dva zlomky so znamienkom plus, napríklad 1/2 + 1/5.' };
+        if (parts.some((p) => p.n !== 1)) return { ok: false, msg: 'Oba zlomky musia mať v čitateli 1.' };
+        if (parts[0].d === parts[1].d) return { ok: false, msg: 'Zlomky musia byť rôzne.' };
+        const n = parts[0].d + parts[1].d, d = parts[0].d * parts[1].d;
+        return n * 12 === 7 * d ? { ok: true } : { ok: false };
+      }, hint: 'Skús začať najväčším zlomkom s čitateľom 1, ktorý je menší ako 7/12.', sol: 'Sú dve riešenia: 7/12 = 1/2 + 1/12 aj 7/12 = 1/3 + 1/4. Našiel si obe?' },
+      { lvl: 3, kind: 'input', mode: 'exact', q: 'Zlomok sa nezmení, keď k jeho čitateľovi pripočítame 4 a k menovateľovi 6. Menovateľ je o 5 väčší ako čitateľ. Ktorý je to zlomok?', ans: '10/15', hint: 'Keď sa zlomok nezmení, musí byť rovný zlomku z prírastkov, teda 4/6.', sol: 'Ak (a + 4)/(b + 6) = a/b, potom a · 6 = b · 4, teda a/b = 4/6 = 2/3. Zlomky rovné 2/3 sú 2/3, 4/6, 6/9, 8/12, 10/15… Menovateľ je o 5 väčší len pri 10/15.' },
+      { lvl: 3, kind: 'choice', q: 'Ktorý z týchto zlomkov sa dá zapísať ako desatinné číslo s konečným počtom desatinných miest?', opts: [F(1, 3), F(3, 40), F(5, 6)], a: 1, hint: 'Rozlož menovatele na prvočísla. Ktoré prvočísla delia 10, 100, 1 000…?', sol: '3/40 = 0,075. Zlomok v základnom tvare má konečný desatinný zápis práve vtedy, keď jeho menovateľ má len prvočinitele 2 a 5 (40 = 2 · 2 · 2 · 5). Vtedy ho vieme rozšíriť na menovateľa 10, 100, 1 000…' },
+      { lvl: 3, kind: 'input', mode: 'lowest', q: 'Zapíš periodické číslo 0,272727… ako zlomok v základnom tvare.', ans: '3/11', hint: 'Označ x = 0,2727… Koľko je 100 · x? Čo dostaneš, keď od toho odčítaš x?', sol: '100x = 27,2727… a x = 0,2727…, takže 100x − x = 27. Potom 99x = 27 a x = 27/99 = 3/11.' },
+      { lvl: 3, kind: 'input', q: 'Slimák lezie na stĺp vysoký 1 meter. Prvý deň vylezie polovicu stĺpa, druhý deň tretinu zvyšku, tretí deň štvrtinu nového zvyšku a tak ďalej. Akú časť stĺpa bude mať slimák pred sebou po 9 dňoch?', ans: '1/10', hint: 'Po prvom dni zostáva 1/2, po druhom 2/3 z 1/2…', sol: 'Zvyšok po n dňoch je 1/2 · 2/3 · 3/4 · … · n/(n+1) = 1/(n+1). Po 9 dňoch má pred sebou 1/10 stĺpa, teda 10 cm. Hore sa nikdy úplne nedostane!' }
+    ],
+    explore_q: { q: 'Vymysli vlastný hlavolam so zlomkami, ktorý má jednoznačné riešenie. Daj ho vyriešiť spolužiakovi. Čo urobilo tvoj hlavolam ťažkým?', a: 'Dobrý hlavolam má jednoduché zadanie a prekvapivý trik: skracovanie dlhého súčinu, rozdelenie zlomku na rozdiel dvoch zlomkov alebo pohľad „koľko chýba do celku“. Over si, že má práve jedno riešenie.' }
+  });
+
+  /* ================= island map ================= */
+  const ISLAND = [
+    { id: 'zlomky', name: 'Zlomková štvrť', topic: 'Zlomky · 8 budov', built: true },
+    { id: 'delitelnost', name: 'Veža deliteľnosti', topic: 'Deliteľnosť' },
+    { id: 'percenta', name: 'Továreň na percentá', topic: 'Percentá' },
+    { id: 'uhly', name: 'Prístav uhlov', topic: 'Uhly' },
+    { id: 'objem', name: 'Sklad kvádrov', topic: 'Kváder a kocka' },
+    { id: 'zaporne', name: 'Teplomerová veža', topic: 'Záporné čísla' }
+  ];
+  function openIsland(id) {
+    const b = ISLAND.find((x) => x.id === id); if (!b) return;
+    if (b.built) { location.hash = 'zlomky'; return; }
+    $('#info-text').innerHTML = `<b>${b.name}</b> · téma ${b.topic}. Túto budovu ešte nikto nepostavil. Môžete ju postaviť so spolužiakmi a bude na nej vaše meno.`;
+    $('#info').hidden = false;
+  }
+  $$('#map .bld').forEach((g) => {
+    g.addEventListener('click', () => openIsland(g.dataset.id));
+    g.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openIsland(g.dataset.id); } });
+  });
+  $('#info-close').addEventListener('click', () => { $('#info').hidden = true; });
+  $('#cards').innerHTML = ISLAND.map((b) => `<button type="button" class="card${b.built ? ' built' : ''}" data-id="${b.id}"><b>${b.name}</b><span>${b.topic}</span><small>${b.built ? 'Otvoriť →' : 'čaká na staviteľov'}</small></button>`).join('');
+  $$('#cards .card').forEach((c) => c.addEventListener('click', () => openIsland(c.dataset.id)));
+
+  /* ================= district ================= */
+  $$('#district .bld').forEach((g) => {
+    g.addEventListener('click', () => { location.hash = g.dataset.go; });
+    g.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); location.hash = g.dataset.go; } });
+  });
+  function renderDistrict() {
+    $('#dcards').innerHTML = B.map((b) => {
+      const n = (progress[b.id] || []).length, tot = b.tasks.length;
+      return `<button type="button" class="card built" data-go="${b.id}" style="--bc:var(${b.color})"><b>${b.name}</b><span>${b.short}</span><small>${n} z ${tot} úloh vyriešených</small><span class="meter" aria-hidden="true"><i style="width:${(n / tot) * 100}%"></i></span></button>`;
+    }).join('');
+  }
+  $('#dcards').addEventListener('click', (e) => { const c = e.target.closest('[data-go]'); if (c) location.hash = c.dataset.go; });
+
+  /* ================= building page ================= */
+  const TABS = ['Kde to stretneš', 'Pozri bližšie', 'Prečo to platí', 'Úlohy'];
+  function renderBuilding(b) {
+    const page = $('#bpage');
+    page.style.setProperty('--bc', `var(${b.color})`);
+    const art = $(`#district .bld[data-go="${b.id}"] .lift`);
+    let hero = '';
+    if (art) {
+      const tmp = art.cloneNode(true);
+      tmp.querySelectorAll('text.lbl, text.sub').forEach((t) => t.remove());
+      tmp.removeAttribute('class');
+      hero = `<svg class="hero" viewBox="-115 -240 230 252" aria-hidden="true">${tmp.outerHTML}</svg>`;
+    }
+    const head = `<div class="topic-head"><div class="th-l">${hero}<div><p class="kicker">Zlomková štvrť</p><h1>${b.name}</h1><p class="skvp">${b.skvp}</p></div></div><button class="btn" type="button" data-nav="zlomky">← Do štvrte</button></div>`;
+    if (b.tasksOnly) {
+      page.innerHTML = head + `<div class="panel"><p class="lead">${b.intro}</p><div class="tk"></div></div>`;
+      mountTasks($('.tk', page), b);
+      return;
+    }
+    page.innerHTML = head +
+      `<div class="steps" role="tablist" aria-label="Kroky">${TABS.map((t, i) => `<button class="step-tab" role="tab" type="button" data-s="${i}"><span class="n">Krok ${i + 1}</span><span class="t">${t}</span></button>`).join('')}</div>
+      <div class="panel" data-panel="0" role="tabpanel">${b.scene()}</div>
+      <div class="panel" data-panel="1" role="tabpanel" hidden><div class="stack"><h2>${b.explore.title}</h2><p class="lead">${b.explore.lead}</p></div><div class="wg"></div></div>
+      <div class="panel" data-panel="2" role="tabpanel" hidden><h2>${b.why.title}</h2><div class="pl"></div><div class="rule"><h3>Pravidlo</h3>${b.why.rule}</div><div class="tip"><h3>Zaujímavosť</h3>${b.why.tip}</div></div>
+      <div class="panel" data-panel="3" role="tabpanel" hidden><div class="stack"><h2>Úlohy</h2><p class="lead">Úlohy sú zoradené od ľahkých po ťažké. Odpovede píš ako celé číslo, zlomok (3/4) alebo zmiešané číslo (2 1/3).</p></div><div class="tk"></div></div>
+      <div class="stepnav"><button class="btn" type="button" data-sn="prev">← Späť</button><span class="sc"></span><button class="btn primary" type="button" data-sn="next">Ďalej →</button></div>`;
+    b.explore.mount($('.wg', page));
+    mountPlayer($('.pl', page), b.why.steps);
+    mountTasks($('[data-panel="3"] .tk', page), b);
+    let step = 0; const seen = new Set([0]);
+    function setStep(i) {
+      step = Math.max(0, Math.min(3, i)); seen.add(step);
+      $$('[data-panel]', page).forEach((p) => { p.hidden = +p.dataset.panel !== step; });
+      $$('.step-tab', page).forEach((t) => { const s = +t.dataset.s; t.setAttribute('aria-selected', s === step ? 'true' : 'false'); t.classList.toggle('done', seen.has(s) && s !== step); });
+      $('.sc', page).textContent = `${step + 1} / 4`;
+      $('[data-sn="prev"]', page).disabled = step === 0;
+      $('[data-sn="next"]', page).textContent = step === 3 ? 'Späť do štvrte' : 'Ďalej →';
+    }
+    page.onclick = (e) => {
+      const tab = e.target.closest('.step-tab'); if (tab) { setStep(+tab.dataset.s); return; }
+      const sn = e.target.closest('[data-sn]');
+      if (sn) {
+        if (sn.dataset.sn === 'next' && step === 3) { location.hash = 'zlomky'; return; }
+        setStep(step + (sn.dataset.sn === 'next' ? 1 : -1)); page.scrollIntoView({ block: 'start' }); return;
+      }
+      const rv = e.target.closest('[data-reveal]');
+      if (rv) { rv.parentElement.nextElementSibling.hidden = false; rv.hidden = true; }
+    };
+    setStep(0);
+  }
+
+  /* ================= routing ================= */
+  document.addEventListener('click', (e) => { const n = e.target.closest('[data-nav]'); if (n) location.hash = n.dataset.nav; });
+  function route() {
+    cleanup();
+    const h = location.hash.slice(1);
+    const b = B.find((x) => x.id === h);
+    $('#district').hidden = h !== 'zlomky';
+    $('#bpage').hidden = !b;
+    $('#map').hidden = !!b || h === 'zlomky';
+    $('#info').hidden = true;
+    if (b) renderBuilding(b);
+    if (h === 'zlomky') renderDistrict();
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', route);
+  route();
+})();
+</script>
+
+</body>
+</html>
